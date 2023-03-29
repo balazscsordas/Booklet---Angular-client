@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseURL: 'http://localhost:3001/',
+  apiBaseURL: 'https://booklet-nestjs-server-production.up.railway.app/',
 };
