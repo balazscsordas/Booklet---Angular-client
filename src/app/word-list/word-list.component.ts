@@ -3,6 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
+interface Word {
+  id: number;
+  hun: string;
+  eng: string;
+}
+
 @Component({
   selector: 'app-word-list',
   templateUrl: './word-list.component.html',
@@ -14,7 +20,8 @@ export class WordListComponent implements OnInit {
     private router: Router
   ) {}
 
-  words: any;
+  loading = true;
+  words: Word[] | undefined;
   page: number = Number(this.route.snapshot.params['page']);
 
   ngOnInit() {
@@ -23,9 +30,12 @@ export class WordListComponent implements OnInit {
 
   getWordList(page: number) {
     this.http
-      .get(`${environment.apiBaseURL}Words/GetAll`, { params: { page } })
+      .get<Word[]>(`${environment.apiBaseURL}Words/GetAll`, {
+        params: { page },
+      })
       .subscribe((res) => {
         this.words = res;
+        this.loading = false;
       });
   }
 

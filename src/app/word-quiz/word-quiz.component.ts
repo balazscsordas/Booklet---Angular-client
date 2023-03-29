@@ -4,10 +4,10 @@ import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ErrorHandlerService } from '../services/error-handler/error-handler.service';
 
-interface Words {
-  id: number | undefined;
-  wordFrom: string | undefined;
-  wordTo: string | undefined;
+interface Word {
+  id: number;
+  wordFrom: string;
+  wordTo: string;
 }
 
 @Component({
@@ -20,11 +20,8 @@ export class WordQuizComponent implements OnInit {
     private errorHandler: ErrorHandlerService
   ) {}
 
-  words: Words = {
-    id: undefined,
-    wordFrom: undefined,
-    wordTo: undefined,
-  };
+  loading = true;
+  word: Word | undefined;
   showSolution = false;
 
   ngOnInit() {
@@ -34,10 +31,11 @@ export class WordQuizComponent implements OnInit {
   getWord() {
     this.showSolution = false;
     this.http
-      .get<Words>(`${environment.apiBaseURL}Words/GetOneRandom`)
+      .get<Word>(`${environment.apiBaseURL}Words/GetOneRandom`)
       .pipe(catchError((error) => this.errorHandler.handleError(error)))
       .subscribe((res) => {
-        this.words = res;
+        this.word = res;
+        this.loading = false;
       });
   }
 
