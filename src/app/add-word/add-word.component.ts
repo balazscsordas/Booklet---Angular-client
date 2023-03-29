@@ -27,7 +27,7 @@ export class AddWordComponent {
     this.addNewWordForm.reset();
   }
 
-  postNewWord(FormData: any) {
+  private postNewWord(FormData: any) {
     this.http
       .post(environment.apiBaseURL + 'Words/AddNewWord', FormData)
       .pipe(catchError((error) => this.errorHandler.handleError(error)))

@@ -1,0 +1,29 @@
+<section class="max-w-xl p-4 mx-auto bg-secondary rounded-xl">
+  <h1 class="mb-6 font-bold text-center">Sign In</h1>
+  <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+    <div class="grid grid-cols-1 gap-6">
+      <div class="flex flex-col">
+        <label>Username</label>
+        <input
+          type="text"
+          formControlName="username"
+          class="p-2 rounded-md bg-transparent border-[1px]"
+        />
+      </div>
+      <div class="flex flex-col">
+        <label>Password</label>
+        <input
+          type="text"
+          formControlName="password"
+          class="p-2 rounded-md bg-transparent border-[1px]"
+        />
+      </div>
+    </div>
+    <button class="mt-8 mb-4" mat-raised-button color="primary" type="submit">
+      Login
+    </button>
+    <p>
+      Click <a routerLink="/registration" class="underline">here</a> to register
+    </p>
+  </form>
+</section>

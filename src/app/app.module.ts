@@ -14,6 +14,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { WordDetailsComponent } from './word-details/word-details.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginComponent } from './login/login.component';
+import { TextInputComponent } from './text-input/text-input.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +26,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     WordListComponent,
     AddWordComponent,
     WordDetailsComponent,
+    LoginComponent,
+    TextInputComponent,
+    RegistrationComponent,
   ],
   imports: [
     BrowserModule,
