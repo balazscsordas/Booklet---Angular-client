@@ -1,0 +1,38 @@
+<h1 class="text-center">Practice</h1>
+
+<section class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+  <div class="flex flex-col items-center">
+    <p class="text-3xl font-medium text-tetriary1">{{ words.wordFrom }}</p>
+    <span class="my-4 text-tetriary1">-</span>
+    <input
+      *ngIf="showSolution"
+      class="bg-transparent text-center text-3xl font-medium text-tetriary1"
+      disabled
+      value="{{ words.wordTo }}"
+    />
+    <input
+      *ngIf="!showSolution"
+      class="bg-transparent text-center text-3xl font-medium text-tetriary1"
+      disabled
+      value=""
+    />
+  </div>
+</section>
+<div class="bottom-0 left-0 right-0 absolute p-6 border-t-[1px] text-center">
+  <button
+    *ngIf="showSolution"
+    mat-raised-button
+    color="primary"
+    (click)="getWord()"
+  >
+    New Word
+  </button>
+  <button
+    *ngIf="!showSolution"
+    mat-raised-button
+    color="primary"
+    (click)="setShowSolution()"
+  >
+    Show Solution
+  </button>
+</div>

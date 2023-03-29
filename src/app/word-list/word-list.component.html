@@ -1,0 +1,39 @@
+<h1 class="text-center">My Words</h1>
+
+<div
+  class="flex flex-row p-4 bg-secondary uppercase text-tetriary1 font-medium"
+>
+  <span class="mr-4">Id</span>
+  <div class="flex flex-row w-full">
+    <span class="flex-1 px-2">Hun</span>
+    <span class="flex-1 px-2">Eng</span>
+  </div>
+  <span class="ml-10"></span>
+</div>
+
+<div *ngFor="let word of words; let i = index">
+  <div
+    class="flex flex-row bg-secondary border-[1px] border-primary text-tetriary2 items-center pl-4 p-1"
+  >
+    <span class="mr-4">{{ i + 1 }}</span>
+    <div class="flex flex-row w-full">
+      <span class="flex-1 px-2">{{ word.hun }}</span>
+      <span class="flex-1 px-2">{{ word.eng }}</span>
+    </div>
+    <button (click)="goToDetailsPage(word.id)" mat-icon-button>
+      <mat-icon class="text-base">edit</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="mt-6 flex justify-center">
+  <div class="bg-secondary flex flex-row justify-center rounded-full">
+    <button mat-icon-button (click)="goToPrevPage()">
+      <mat-icon class="text-base">keyboard_arrow_left</mat-icon>
+    </button>
+    <span class="flex items-center px-2">{{ page }}</span>
+    <button mat-icon-button (click)="goToNextPage()">
+      <mat-icon class="text-base">keyboard_arrow_right</mat-icon>
+    </button>
+  </div>
+</div>

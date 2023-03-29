@@ -1,0 +1,37 @@
+<h1 class="text-center">Details</h1>
+<form [formGroup]="editWordForm" (ngSubmit)="handleSubmit()">
+  <section class="grid md:grid-cols-2 gap-4">
+    <div class="flex flex-col">
+      <label>Hun</label>
+      <input
+        type="text"
+        formControlName="hun"
+        class="p-2 rounded-md bg-transparent border-[1px]"
+      />
+    </div>
+
+    <div class="flex flex-col">
+      <label>Eng</label>
+      <input
+        type="text"
+        formControlName="eng"
+        class="p-2 rounded-md bg-transparent border-[1px]"
+      />
+    </div>
+  </section>
+
+  <div class="flex flex-row justify-center">
+    <button class="mt-8 mx-3" mat-raised-button color="primary" type="submit">
+      Edit
+    </button>
+    <button
+      class="mt-8 mx-3"
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="deleteWord(id)"
+    >
+      Delete
+    </button>
+  </div>
+</form>
