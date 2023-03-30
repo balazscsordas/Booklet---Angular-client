@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ErrorHandlerService } from '../services/error-handler/error-handler.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 
 interface Word {
   id: number;
@@ -31,7 +31,9 @@ export class WordQuizComponent implements OnInit {
   getWord() {
     this.showSolution = false;
     this.http
-      .get<Word>(`${environment.apiBaseURL}Words/GetOneRandom`)
+      .get<Word>(`${environment.apiBaseURL}Words/GetOneRandom`, {
+        withCredentials: true,
+      })
       .pipe(catchError((error) => this.errorHandler.handleError(error)))
       .subscribe((res) => {
         this.word = res;

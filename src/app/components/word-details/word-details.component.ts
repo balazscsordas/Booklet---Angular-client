@@ -5,8 +5,8 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ErrorHandlerService } from '../services/error-handler/error-handler.service';
-import { SnackbarService } from '../services/snackbar/snackbar.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
+import { SnackbarService } from '../../services/snackbar/snackbar.service';
 
 interface Form {
   id: number | null;

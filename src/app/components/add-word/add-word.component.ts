@@ -3,8 +3,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { catchError, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ErrorHandlerService } from '../services/error-handler/error-handler.service';
-import { SnackbarService } from '../services/snackbar/snackbar.service';
+import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
+import { SnackbarService } from '../../services/snackbar/snackbar.service';
 
 @Component({
   selector: 'app-add-word',
