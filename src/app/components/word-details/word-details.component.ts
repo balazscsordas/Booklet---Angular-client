@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
@@ -68,7 +68,7 @@ export class WordDetailsComponent implements OnInit {
       .put<Form>(environment.apiBaseURL + 'Words/EditWord', newData)
       .pipe(catchError((error) => this.errorHandler.handleError(error)))
       .subscribe((res) => {
-        console.log(res);
+        this.location.back();
         this.snackbar.success('Successfully edited the word.');
         this.prevWordForm = res;
       });
