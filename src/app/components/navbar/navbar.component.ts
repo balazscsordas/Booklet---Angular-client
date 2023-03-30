@@ -12,8 +12,11 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit() {
     if (this.auth.accessToken) {
-      console.log(this.auth.accessToken);
       this.authenticated = true;
     }
+  }
+
+  logout() {
+    this.auth.signOut();
   }
 }

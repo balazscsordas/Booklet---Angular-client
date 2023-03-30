@@ -18,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { TextInputComponent } from './components/text-input/text-input.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.interceptor';
+import { LayoutComponent } from './components/layout/layout.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.inte
     LoginComponent,
     TextInputComponent,
     RegistrationComponent,
+    LayoutComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,17 +1,44 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddWordComponent } from './components/add-word/add-word.component';
+import { LayoutComponent } from './components/layout/layout.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { WordDetailsComponent } from './components/word-details/word-details.component';
 import { WordListComponent } from './components/word-list/word-list.component';
 import { WordQuizComponent } from './components/word-quiz/word-quiz.component';
+import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: WordQuizComponent },
-  { path: 'my-words/:page', component: WordListComponent },
-  { path: 'add-word', component: AddWordComponent },
-  { path: 'word/:id', component: WordDetailsComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: WordQuizComponent,
+        canActivate: [AuthGuard],
+        pathMatch: 'full',
+      },
+      {
+        path: 'my-words/:page',
+        component: WordListComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'add-word',
+        component: AddWordComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'word/:id',
+        component: WordDetailsComponent,
+        canActivate: [AuthGuard],
+      },
+    ],
+  },
+
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
 ];

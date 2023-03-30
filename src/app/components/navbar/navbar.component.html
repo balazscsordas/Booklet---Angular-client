@@ -3,8 +3,16 @@
     <a routerLink="/" class="text-tetriary1 p-4">Practice</a>
     <a routerLink="/add-word" class="text-tetriary1 p-4">Add Word</a>
     <a routerLink="/my-words/1" class="text-tetriary1 p-4">My Words</a>
-    <a routerLink="/login" class="text-tetriary1 p-4">Login</a>
+    <a *ngIf="!authenticated" routerLink="/login" class="text-tetriary1 p-4"
+      >Login</a
+    >
+    <button
+      *ngIf="authenticated"
+      (click)="logout()"
+      type="button"
+      class="text-tetriary1 p-4"
+    >
+      Sign out
+    </button>
   </section>
-
-  <span *ngIf="authenticated">Sign out</span>
 </section>

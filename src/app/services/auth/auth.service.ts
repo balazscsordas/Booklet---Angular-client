@@ -17,7 +17,7 @@ export class AuthService {
     private snackbar: SnackbarService,
     private router: Router
   ) {}
-  accessToken: string | undefined;
+  accessToken: string | null = null;
 
   sendLoginCredentials(loginForm: FormGroup) {
     this.http
@@ -47,5 +47,10 @@ export class AuthService {
         this.router.navigateByUrl('login');
         this.snackbar.success('Registration was successfull.');
       });
+  }
+
+  signOut() {
+    this.accessToken = null;
+    this.router.navigateByUrl('login');
   }
 }
