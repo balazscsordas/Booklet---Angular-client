@@ -6,20 +6,30 @@
     <form [formGroup]="registrationForm" (ngSubmit)="handleSubmit()">
       <div class="grid grid-cols-1 gap-6">
         <div class="flex flex-col">
-          <label>E-mail</label>
+          <label>E-mail *</label>
           <input
             type="text"
             formControlName="email"
             class="p-2 rounded-md bg-transparent border-[1px]"
           />
+          <app-input-field-error-text
+            *ngIf="registrationForm.value.email && registrationForm.controls.email.errors?.['email']"
+            [errorText]="'Not valid email address.'"
+          >
+          </app-input-field-error-text>
         </div>
         <div class="flex flex-col">
-          <label>Password</label>
+          <label>Password *</label>
           <input
-            type="text"
+            type="password"
             formControlName="password"
             class="p-2 rounded-md bg-transparent border-[1px]"
           />
+          <app-input-field-error-text
+            *ngIf="registrationForm.value.password && registrationForm.controls.password.errors?.['minlength']"
+            [errorText]="'Password has to contain at least 6 characters.'"
+          >
+          </app-input-field-error-text>
         </div>
       </div>
       <button class="mt-8 mb-4" mat-raised-button color="primary" type="submit">

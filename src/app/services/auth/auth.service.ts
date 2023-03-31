@@ -53,14 +53,4 @@ export class AuthService {
     this.accessToken = null;
     this.router.navigateByUrl('login');
   }
-
-  isEmpty(
-    authForm: Partial<{ email: string | null; password: string | null }>
-  ) {
-    if (authForm.email == '' || authForm.password == '') {
-      return true;
-    } else {
-      return false;
-    }
-  }
 }

@@ -19,6 +19,7 @@ import { TextInputComponent } from './components/text-input/text-input.component
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.interceptor';
 import { LayoutComponent } from './components/layout/layout.component';
+import { InputFieldErrorTextComponent } from './input-field-error-text/input-field-error-text.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { LayoutComponent } from './components/layout/layout.component';
     TextInputComponent,
     RegistrationComponent,
     LayoutComponent,
+    InputFieldErrorTextComponent,
   ],
   imports: [
     BrowserModule,
