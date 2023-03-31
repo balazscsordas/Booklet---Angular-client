@@ -45,7 +45,7 @@ export class AuthService {
       .pipe(catchError((error) => this.errorHandler.handleError(error)))
       .subscribe((res) => {
         this.router.navigateByUrl('login');
-        this.snackbar.success('Registration was successfull.');
+        this.snackbar.success('Registration was successful.');
       });
   }
 
