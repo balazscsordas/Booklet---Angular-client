@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 interface Word {
@@ -14,6 +15,7 @@ interface Word {
   templateUrl: './word-list.component.html',
 })
 export class WordListComponent implements OnInit {
+  errorHandler: any;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -23,9 +25,11 @@ export class WordListComponent implements OnInit {
   loading = true;
   words: Word[] | undefined;
   page: number = Number(this.route.snapshot.params['page']);
+  maxPageNumber = 1;
 
   ngOnInit() {
     this.getWordList(this.page);
+    this.getMaxPageNumber();
   }
 
   getWordList(page: number) {
@@ -39,10 +43,20 @@ export class WordListComponent implements OnInit {
       });
   }
 
+  getMaxPageNumber() {
+    this.http
+      .get<number>(`${environment.apiBaseURL}Words/GetMaxPageNumber`)
+      .subscribe((res) => {
+        this.maxPageNumber = res;
+      });
+  }
+
   goToNextPage() {
-    this.page = this.page + 1;
-    this.router.navigate([`/my-words/${this.page}`]);
-    this.getWordList(this.page);
+    if (this.page < this.maxPageNumber) {
+      this.page = this.page + 1;
+      this.router.navigate([`/my-words/${this.page}`]);
+      this.getWordList(this.page);
+    }
   }
 
   goToPrevPage() {
