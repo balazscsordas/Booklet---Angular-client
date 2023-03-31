@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -52,5 +52,15 @@ export class AuthService {
   signOut() {
     this.accessToken = null;
     this.router.navigateByUrl('login');
+  }
+
+  isEmpty(
+    authForm: Partial<{ email: string | null; password: string | null }>
+  ) {
+    if (authForm.email == '' || authForm.password == '') {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
