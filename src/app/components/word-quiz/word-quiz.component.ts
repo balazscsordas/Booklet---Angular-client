@@ -38,7 +38,7 @@ export class WordQuizComponent implements OnInit {
   }
 
   getNextWord() {
-    if (this.languageFrom && this.languageTo && this.randomLanguage !== null) {
+    if (this.randomLanguage !== null) {
       this.getWord(this.languageFrom, this.languageTo, this.randomLanguage);
     }
   }
