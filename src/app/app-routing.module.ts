@@ -8,6 +8,7 @@ import { WordDetailsComponent } from './components/word-details/word-details.com
 import { WordListComponent } from './components/word-list/word-list.component';
 import { WordQuizComponent } from './components/word-quiz/word-quiz.component';
 import { AuthGuard } from './guards/auth.guard';
+import { WordQuizSettingsComponent } from './components/word-quiz-settings/word-quiz-settings.component';
 
 const routes: Routes = [
   {
@@ -17,9 +18,13 @@ const routes: Routes = [
     children: [
       {
         path: '',
+        component: WordQuizSettingsComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: 'practice',
         component: WordQuizComponent,
         canActivate: [AuthGuard],
-        pathMatch: 'full',
       },
       {
         path: 'my-words/:page',

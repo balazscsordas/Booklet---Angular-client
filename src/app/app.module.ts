@@ -20,6 +20,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.interceptor';
 import { LayoutComponent } from './components/layout/layout.component';
 import { InputFieldErrorTextComponent } from './input-field-error-text/input-field-error-text.component';
+import { WordQuizSettingsComponent } from './components/word-quiz-settings/word-quiz-settings.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { InputFieldErrorTextComponent } from './input-field-error-text/input-fie
     RegistrationComponent,
     LayoutComponent,
     InputFieldErrorTextComponent,
+    WordQuizSettingsComponent,
   ],
   imports: [
     BrowserModule,
