@@ -32,7 +32,7 @@ export class WordQuizComponent implements OnInit {
   randomLanguage = this.quizService.settingsForm.getRawValue().randomLanguage;
 
   ngOnInit() {
-    if (this.languageFrom && this.languageTo && this.randomLanguage !== null) {
+    if (this.randomLanguage !== null) {
       this.getWord(this.languageFrom, this.languageTo, this.randomLanguage);
     }
   }
@@ -44,15 +44,14 @@ export class WordQuizComponent implements OnInit {
   }
 
   private getWord(
-    languageFrom: string,
-    languageTo: string,
+    languageFrom: string | null,
+    languageTo: string | null,
     randomLanguage: boolean
   ) {
     this.showSolution = false;
-    const params = new HttpParams()
-      .set('languageFrom', languageFrom)
-      .set('languageTo', languageTo)
-      .set('randomLanguage', randomLanguage);
+    const params = new HttpParams().set('randomLanguage', randomLanguage);
+    languageFrom && params.append('languageFrom', languageFrom);
+    languageTo && params.append('languageTo', languageTo);
     this.http
       .get<WordInterface>(`${environment.apiBaseURL}Words/GetOneRandom`, {
         withCredentials: true,

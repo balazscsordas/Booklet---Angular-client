@@ -31,38 +31,6 @@
       <label class="ml-2">Make it random</label>
     </section>
 
-    <section class="grid grid-cols-1 sm:grid-cols-2 gap-5 mt-10">
-      <div class="flex flex-col">
-        <label>Number of words in this quiz *</label>
-        <input
-          type="text"
-          class="p-2 rounded-md bg-transparent border-[1px]"
-          formControlName="numberOfWords"
-        />
-        <app-input-field-error-text
-          *ngIf="quizService.settingsForm.value.numberOfWords && quizService.settingsForm.controls.numberOfWords.errors?.['pattern']"
-          [errorText]="'Only numbers are allowed in this field.'"
-        >
-        </app-input-field-error-text>
-      </div>
-      <div class="flex flex-col">
-        <label>Seconds / word *</label>
-        <select
-          class="p-2 rounded-md bg-transparent border-[1px]"
-          formControlName="secPerWord"
-        >
-          <option>10</option>
-          <option>15</option>
-          <option>20</option>
-          <option>25</option>
-          <option>30</option>
-          <option>35</option>
-          <option>40</option>
-          <option>45</option>
-        </select>
-      </div>
-    </section>
-
     <div class="text-center mt-10">
       <button type="submit" mat-raised-button color="primary">
         Start Practice
