@@ -1,10 +1,12 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { catchError, throwError } from 'rxjs';
+import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
+import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
+import { Router } from '@angular/router';
 
-interface Word {
+interface WordInterface {
   id: number;
   wordFrom: string;
   wordTo: string;
@@ -17,28 +19,54 @@ interface Word {
 export class WordQuizComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private quizService: WordQuizSettingsService,
+    private router: Router
   ) {}
 
   loading = true;
-  word: Word | undefined;
+  word: WordInterface | undefined;
   showSolution = false;
+  languageFrom = this.quizService.settingsForm.getRawValue().languageFrom;
+  languageTo = this.quizService.settingsForm.getRawValue().languageTo;
+  randomLanguage = this.quizService.settingsForm.getRawValue().randomLanguage;
 
   ngOnInit() {
-    this.getWord();
+    if (this.languageFrom && this.languageTo && this.randomLanguage !== null) {
+      this.getWord(this.languageFrom, this.languageTo, this.randomLanguage);
+    }
   }
 
-  getWord() {
+  getNextWord() {
+    if (this.languageFrom && this.languageTo && this.randomLanguage !== null) {
+      this.getWord(this.languageFrom, this.languageTo, this.randomLanguage);
+    }
+  }
+
+  private getWord(
+    languageFrom: string,
+    languageTo: string,
+    randomLanguage: boolean
+  ) {
     this.showSolution = false;
+    const params = new HttpParams()
+      .set('languageFrom', languageFrom)
+      .set('languageTo', languageTo)
+      .set('randomLanguage', randomLanguage);
     this.http
-      .get<Word>(`${environment.apiBaseURL}Words/GetOneRandom`, {
+      .get<WordInterface>(`${environment.apiBaseURL}Words/GetOneRandom`, {
         withCredentials: true,
+        params,
       })
       .pipe(catchError((error) => this.errorHandler.handleError(error)))
       .subscribe((res) => {
         this.word = res;
         this.loading = false;
       });
+  }
+
+  exitSession() {
+    this.router.navigateByUrl('');
   }
 
   setShowSolution() {
