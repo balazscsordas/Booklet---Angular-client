@@ -7,8 +7,9 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { WordDetailsComponent } from './components/word-details/word-details.component';
 import { WordListComponent } from './components/word-list/word-list.component';
 import { WordQuizComponent } from './components/word-quiz/word-quiz.component';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth/auth.guard';
 import { WordQuizSettingsComponent } from './components/word-quiz-settings/word-quiz-settings.component';
+import { WordQuizGuard } from './guards/word-quiz/word-quiz.guard';
 
 const routes: Routes = [
   {
@@ -24,7 +25,7 @@ const routes: Routes = [
       {
         path: 'practice',
         component: WordQuizComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, WordQuizGuard],
       },
       {
         path: 'my-words/:page',

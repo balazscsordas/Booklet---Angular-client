@@ -33,7 +33,6 @@ export class WordQuizSettingsComponent implements OnInit {
       this.snackbar.error('All of the fields are required.');
       return;
     }
-    console.log(this.quizService.settingsForm.value.randomLanguage);
     if (this.quizService.settingsForm.value.randomLanguage === false) {
       if (
         this.quizService.settingsForm.value.languageFrom ===
