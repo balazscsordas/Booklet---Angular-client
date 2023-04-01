@@ -11,8 +11,8 @@ export class LoginComponent {
   constructor(private auth: AuthService, private snackbar: SnackbarService) {}
 
   loginForm = new FormGroup({
-    email: new FormControl(null, Validators.required),
-    password: new FormControl(null, [Validators.required]),
+    email: new FormControl<string | null>(null, Validators.required),
+    password: new FormControl<string | null>(null, [Validators.required]),
   });
 
   handleSubmit() {
@@ -29,5 +29,11 @@ export class LoginComponent {
       this.auth.sendLoginCredentials(this.loginForm);
       this.loginForm.reset();
     }
+  }
+
+  testUserLogin() {
+    this.loginForm.setValue({ email: 'test@test.com', password: 'lacika1996' });
+    this.auth.sendLoginCredentials(this.loginForm);
+    this.loginForm.reset();
   }
 }
