@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseURL: 'https://booklet-nestjs-server-production.up.railway.app/',
+  apiBaseURL: 'https://cute-teal-eagle-cap.cyclic.app/',
 };
