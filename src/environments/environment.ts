@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseURL: 'https://impossible-teal-coati.cyclic.app/',
+  apiBaseURL: 'https://booklet-nest-js-server.vercel.app/',
 };
