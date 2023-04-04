@@ -23,8 +23,15 @@ export class AddWordComponent {
   });
 
   handleSubmit() {
-    this.postNewWord(this.addNewWordForm.value);
-    this.addNewWordForm.reset();
+    if (
+      this.addNewWordForm.value.eng !== '' &&
+      this.addNewWordForm.value.hun !== ''
+    ) {
+      this.postNewWord(this.addNewWordForm.value);
+      this.addNewWordForm.reset();
+    } else {
+      this.snackbar.info('Both fields are required.');
+    }
   }
 
   private postNewWord(FormData: any) {
