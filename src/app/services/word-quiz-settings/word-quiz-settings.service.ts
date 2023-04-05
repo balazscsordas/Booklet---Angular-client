@@ -16,10 +16,12 @@ export class WordQuizSettingsService {
   disableInputsIfRandomLanguageChecked() {
     this.settingsForm
       .get('randomLanguage')
-      ?.valueChanges.subscribe((checkboxValue) => {
+      ?.valueChanges.subscribe(checkboxValue => {
         if (checkboxValue) {
           this.settingsForm.get('languageFrom')?.disable();
+          this.settingsForm.get('languageFrom')?.setValue('');
           this.settingsForm.get('languageTo')?.disable();
+          this.settingsForm.get('languageTo')?.setValue('');
         } else {
           this.settingsForm.get('languageFrom')?.enable();
           this.settingsForm.get('languageTo')?.enable();

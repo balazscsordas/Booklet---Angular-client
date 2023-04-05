@@ -10,12 +10,14 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 export class LoginComponent {
   constructor(private auth: AuthService, private snackbar: SnackbarService) {}
 
+  loading = false;
   loginForm = new FormGroup({
     email: new FormControl<string | null>(null, Validators.required),
     password: new FormControl<string | null>(null, [Validators.required]),
   });
 
   handleSubmit() {
+    this.loading = true;
     if (
       this.loginForm.controls.email.errors?.['required'] ||
       this.loginForm.controls.password.errors?.['required']
@@ -29,6 +31,7 @@ export class LoginComponent {
       this.auth.sendLoginCredentials(this.loginForm);
       this.loginForm.reset();
     }
+    this.loading = false;
   }
 
   testUserLogin() {

@@ -1,3 +1,4 @@
+<mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
 <section
   class="max-w-xl p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full"
 >
@@ -24,7 +25,13 @@
           />
         </div>
       </div>
-      <button class="mt-8 mb-4" mat-raised-button color="primary" type="submit">
+      <button
+        class="mt-8 mb-4"
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="loading"
+      >
         Login
       </button>
       <button
@@ -33,6 +40,7 @@
         color="primary"
         (click)="testUserLogin()"
         type="button"
+        [disabled]="loading"
       >
         Test User Login
       </button>

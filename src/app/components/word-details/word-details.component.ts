@@ -24,11 +24,11 @@ export class WordDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private snackbar: SnackbarService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
   ) {}
 
+  laci = 1;
   id: number = this.route.snapshot.params['id'];
-  word: any;
   editWordForm = new FormGroup({
     id: new FormControl(0),
     hun: new FormControl(''),
@@ -50,14 +50,15 @@ export class WordDetailsComponent implements OnInit {
       .subscribe((res: any) => {
         this.editWordForm.setValue(res);
         this.prevWordForm = res;
+        this.laci = 2;
       });
   }
 
   deleteWord(id: number) {
     this.http
       .delete(`${environment.apiBaseURL}Words/DeleteOneById/${id}`)
-      .pipe(catchError((error) => this.errorHandler.handleError(error)))
-      .subscribe((res) => {
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
         this.location.back();
         this.snackbar.success('Successfully deleted the word.');
       });
@@ -66,8 +67,8 @@ export class WordDetailsComponent implements OnInit {
   private postEditedWord(newData: any) {
     this.http
       .put<Form>(environment.apiBaseURL + 'Words/EditWord', newData)
-      .pipe(catchError((error) => this.errorHandler.handleError(error)))
-      .subscribe((res) => {
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
         this.location.back();
         this.snackbar.success('Successfully edited the word.');
         this.prevWordForm = res;

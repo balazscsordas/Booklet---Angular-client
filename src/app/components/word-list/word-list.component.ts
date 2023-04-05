@@ -19,7 +19,7 @@ export class WordListComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
   ) {}
 
   loading = true;
@@ -37,7 +37,7 @@ export class WordListComponent implements OnInit {
       .get<Word[]>(`${environment.apiBaseURL}Words/GetAll`, {
         params: { page },
       })
-      .subscribe((res) => {
+      .subscribe(res => {
         this.words = res;
         this.loading = false;
       });
@@ -46,7 +46,7 @@ export class WordListComponent implements OnInit {
   getMaxPageNumber() {
     this.http
       .get<number>(`${environment.apiBaseURL}Words/GetMaxPageNumber`)
-      .subscribe((res) => {
+      .subscribe(res => {
         this.maxPageNumber = res;
       });
   }
