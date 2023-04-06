@@ -101,3 +101,5 @@ export class WordDetailsComponent implements OnInit {
       });
   }
 }
+
+//
