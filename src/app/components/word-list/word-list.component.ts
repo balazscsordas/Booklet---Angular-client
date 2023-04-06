@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 interface Word {
@@ -38,8 +37,12 @@ export class WordListComponent implements OnInit {
         params: { page },
       })
       .subscribe(res => {
-        this.words = res;
-        this.loading = false;
+        if (page > 1 && !res) {
+          this.goToPrevPage();
+        } else {
+          this.words = res;
+          this.loading = false;
+        }
       });
   }
 

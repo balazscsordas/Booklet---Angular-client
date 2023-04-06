@@ -7,6 +7,8 @@ import { catchError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { SnackbarService } from '../../services/snackbar/snackbar.service';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
 
 interface Form {
   id: number | null;
@@ -25,9 +27,10 @@ export class WordDetailsComponent implements OnInit {
     private location: Location,
     private snackbar: SnackbarService,
     private errorHandler: ErrorHandlerService,
+    private dialog: MatDialog,
   ) {}
 
-  laci = 1;
+  loading = true;
   id: number = this.route.snapshot.params['id'];
   editWordForm = new FormGroup({
     id: new FormControl(0),
@@ -44,17 +47,40 @@ export class WordDetailsComponent implements OnInit {
     this.getWord(this.id);
   }
 
+  handleSubmit() {
+    if (
+      JSON.stringify(this.prevWordForm) ===
+      JSON.stringify(this.editWordForm.value)
+    ) {
+      this.snackbar.info('The data is the same.');
+    } else {
+      this.postEditedWord(this.editWordForm.value);
+    }
+  }
+
+  openDeleteDialog(): void {
+    const dialogRef = this.dialog.open(DeleteDialogComponent, {
+      data: { id: this.id },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result === this.id) {
+        this.deleteWord(this.id);
+      }
+    });
+  }
+
   private getWord(id: number) {
     this.http
       .get(`${environment.apiBaseURL}Words/GetOneById/${id}`)
       .subscribe((res: any) => {
         this.editWordForm.setValue(res);
         this.prevWordForm = res;
-        this.laci = 2;
+        this.loading = false;
       });
   }
 
-  deleteWord(id: number) {
+  private deleteWord(id: number) {
     this.http
       .delete(`${environment.apiBaseURL}Words/DeleteOneById/${id}`)
       .pipe(catchError(error => this.errorHandler.handleError(error)))
@@ -73,16 +99,5 @@ export class WordDetailsComponent implements OnInit {
         this.snackbar.success('Successfully edited the word.');
         this.prevWordForm = res;
       });
-  }
-
-  handleSubmit() {
-    if (
-      JSON.stringify(this.prevWordForm) ===
-      JSON.stringify(this.editWordForm.value)
-    ) {
-      this.snackbar.info('The data is the same.');
-    } else {
-      this.postEditedWord(this.editWordForm.value);
-    }
   }
 }

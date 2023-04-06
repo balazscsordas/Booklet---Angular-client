@@ -1,5 +1,5 @@
 <h1 class="text-center">Details</h1>
-<form [formGroup]="editWordForm" (ngSubmit)="handleSubmit()">
+<form *ngIf="!loading" [formGroup]="editWordForm" (ngSubmit)="handleSubmit()">
   <section class="grid md:grid-cols-2 gap-4">
     <div class="flex flex-col">
       <label>Hun</label>
@@ -29,7 +29,7 @@
       mat-raised-button
       color="primary"
       type="button"
-      (click)="deleteWord(id)"
+      (click)="openDeleteDialog()"
     >
       Delete
     </button>

@@ -17,7 +17,7 @@ export class AuthService {
     private errorHandler: ErrorHandlerService,
     private snackbar: SnackbarService,
     private router: Router,
-    private cookieService: CookieService
+    private cookieService: CookieService,
   ) {}
   accessToken: string | null = this.cookieService.get('jwt');
 
@@ -28,17 +28,17 @@ export class AuthService {
         loginForm.value,
         {
           withCredentials: true,
-        }
+        },
       )
-      .pipe(catchError((error) => this.errorHandler.handleError(error)))
-      .subscribe((res) => {
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
         this.cookieService.set(
           'jwt',
           res.accessToken,
           1,
           undefined,
           undefined,
-          true
+          true,
         );
         this.accessToken = res.accessToken;
         this.router.navigateByUrl('');
@@ -50,10 +50,10 @@ export class AuthService {
     this.http
       .post(
         environment.apiBaseURL + 'Auth/Registration',
-        registrationForm.value
+        registrationForm.value,
       )
-      .pipe(catchError((error) => this.errorHandler.handleError(error)))
-      .subscribe((res) => {
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
         this.router.navigateByUrl('login');
         this.snackbar.success('Registration was successful.');
       });

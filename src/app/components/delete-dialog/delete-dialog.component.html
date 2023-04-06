@@ -1,0 +1,5 @@
+<h1 mat-dialog-title>Biztosan törölni szeretnéd?</h1>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Nem</button>
+  <button mat-button [mat-dialog-close]="data.id" cdkFocusInitial>Igen</button>
+</div>
