@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { environment } from 'src/environments/environment';
 
 interface Word {
@@ -19,22 +21,69 @@ export class WordListComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private router: Router,
+    private snackbar: SnackbarService,
   ) {}
 
+  searchParam: string | null = this.getCurrentSearchParam();
   loading = true;
   words: Word[] | undefined;
   page: number = Number(this.route.snapshot.params['page']);
   maxPageNumber = 1;
 
+  searchForm = new FormGroup({
+    searchInput: new FormControl(this.searchParam),
+  });
+
   ngOnInit() {
-    this.getWordList(this.page);
+    this.getWordList(this.page, this.searchParam);
     this.getMaxPageNumber();
   }
 
-  getWordList(page: number) {
+  goToNextPage() {
+    if (this.page < this.maxPageNumber) {
+      this.page = this.page + 1;
+      this.router.navigate([`/my-words/${this.page}`]);
+      this.getWordList(this.page, this.searchParam);
+    }
+  }
+
+  goToPrevPage() {
+    if (this.page > 1) {
+      this.page = this.page - 1;
+      this.router.navigate([`/my-words/${this.page}`]);
+      this.getWordList(this.page, this.searchParam);
+    }
+  }
+
+  goToDetailsPage(id: number) {
+    this.router.navigateByUrl(`/word/${id}`);
+  }
+
+  searchSubmit() {
+    const searchInput = this.searchForm.getRawValue().searchInput;
+    const currentSearchParam = this.getCurrentSearchParam();
+    if (currentSearchParam || searchInput) {
+      const queryParams = { search: searchInput };
+      this.router.navigate([], {
+        queryParams: queryParams,
+        queryParamsHandling: 'merge',
+      });
+      this.searchParam = searchInput;
+      this.getWordList(this.page, searchInput);
+    } else {
+      this.snackbar.error('Please fill out the search input field.');
+    }
+  }
+
+  clearSearchInput() {
+    this.searchForm.reset();
+    this.getWordList(this.page, null);
+  }
+
+  private getWordList(page: number, searchParam: string | null) {
     this.http
       .get<Word[]>(`${environment.apiBaseURL}Words/GetAll`, {
-        params: { page },
+        params: searchParam ? { page, searchParam } : { page },
       })
       .subscribe(res => {
         if (page > 1 && !res) {
@@ -46,7 +95,7 @@ export class WordListComponent implements OnInit {
       });
   }
 
-  getMaxPageNumber() {
+  private getMaxPageNumber() {
     this.http
       .get<number>(`${environment.apiBaseURL}Words/GetMaxPageNumber`)
       .subscribe(res => {
@@ -54,23 +103,12 @@ export class WordListComponent implements OnInit {
       });
   }
 
-  goToNextPage() {
-    if (this.page < this.maxPageNumber) {
-      this.page = this.page + 1;
-      this.router.navigate([`/my-words/${this.page}`]);
-      this.getWordList(this.page);
+  private getCurrentSearchParam() {
+    const searchParam = this.route.snapshot.queryParamMap.get('search');
+    if (!searchParam) {
+      return null;
+    } else {
+      return searchParam;
     }
-  }
-
-  goToPrevPage() {
-    if (this.page > 1) {
-      this.page = this.page - 1;
-      this.router.navigate([`/my-words/${this.page}`]);
-      this.getWordList(this.page);
-    }
-  }
-
-  goToDetailsPage(id: number) {
-    this.router.navigateByUrl(`/word/${id}`);
   }
 }

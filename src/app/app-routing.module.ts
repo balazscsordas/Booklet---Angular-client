@@ -31,6 +31,7 @@ const routes: Routes = [
         path: 'my-words/:page',
         component: WordListComponent,
         canActivate: [AuthGuard],
+        data: { optionalQueryParams: ['filter'] },
       },
       {
         path: 'add-word',
