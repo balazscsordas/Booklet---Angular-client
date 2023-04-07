@@ -39,8 +39,8 @@
     >
       <span class="mr-4">{{ i + 1 }}</span>
       <div class="flex flex-row w-full">
-        <span class="flex-1 px-2">{{ word.hun }}</span>
-        <span class="flex-1 px-2">{{ word.eng }}</span>
+        <span class="flex-1 px-2 items-center flex">{{ word.hun }}</span>
+        <span class="flex-1 px-2 items-center flex">{{ word.eng }}</span>
       </div>
       <button (click)="goToDetailsPage(word.id)" mat-icon-button>
         <mat-icon class="text-base">edit</mat-icon>

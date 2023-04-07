@@ -16,7 +16,6 @@ interface Word {
   templateUrl: './word-list.component.html',
 })
 export class WordListComponent implements OnInit {
-  errorHandler: any;
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,

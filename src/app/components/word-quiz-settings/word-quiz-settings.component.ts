@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-word-quiz-settings',
   templateUrl: './word-quiz-settings.component.html',
-  styleUrls: ['./word-quiz-settings.scss'],
 })
 export class WordQuizSettingsComponent implements OnInit {
   constructor(
@@ -18,7 +17,7 @@ export class WordQuizSettingsComponent implements OnInit {
     private router: Router,
     private errorHandler: ErrorHandlerService,
     private snackbar: SnackbarService,
-    public quizService: WordQuizSettingsService
+    public quizService: WordQuizSettingsService,
   ) {}
 
   languageOptions: string[] | undefined;
@@ -39,7 +38,7 @@ export class WordQuizSettingsComponent implements OnInit {
         this.quizService.settingsForm.value.languageTo
       ) {
         this.snackbar.error(
-          "'Language From' and 'Language To' fields can't be equal."
+          "'Language From' and 'Language To' fields can't be equal.",
         );
         return;
       }
@@ -50,8 +49,8 @@ export class WordQuizSettingsComponent implements OnInit {
   private getLanguageOptions() {
     this.http
       .get<string[]>(`${environment.apiBaseURL}Words/GetLanguageOptions`)
-      .pipe(catchError((error) => this.errorHandler.handleError(error)))
-      .subscribe((res) => {
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
         this.languageOptions = res;
       });
   }

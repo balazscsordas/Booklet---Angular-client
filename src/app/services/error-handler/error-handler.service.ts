@@ -9,16 +9,15 @@ import { SnackbarService } from '../snackbar/snackbar.service';
 export class ErrorHandlerService {
   constructor(private snackbar: SnackbarService) {}
 
-  handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      this.snackbar.error('Serverside error occured, please try again later.');
-    } else if (error.status === 401) {
-      this.snackbar.error('Wrong credentials.');
+  handleError(errorResponse: HttpErrorResponse) {
+    console.log(errorResponse);
+    if (errorResponse.status !== 0) {
+      this.snackbar.error(errorResponse.error.message);
     } else {
       this.snackbar.error('Serverside error occured, please try again later.');
     }
     return throwError(
-      () => new Error('Something bad happened; please try again later.')
+      () => new Error('Something bad happened; please try again later.'),
     );
   }
 }

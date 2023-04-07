@@ -61,6 +61,7 @@ export class AuthService {
 
   signOut() {
     this.accessToken = null;
+    this.cookieService.delete('accessToken');
     this.cookieService.delete('jwt');
     this.router.navigateByUrl('login');
   }

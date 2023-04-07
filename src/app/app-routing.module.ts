@@ -10,6 +10,7 @@ import { WordQuizComponent } from './components/word-quiz/word-quiz.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { WordQuizSettingsComponent } from './components/word-quiz-settings/word-quiz-settings.component';
 import { WordQuizGuard } from './guards/word-quiz/word-quiz.guard';
+import { InitialSettingsComponent } from './initial-settings/initial-settings.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,6 @@ const routes: Routes = [
         path: 'my-words/:page',
         component: WordListComponent,
         canActivate: [AuthGuard],
-        data: { optionalQueryParams: ['filter'] },
       },
       {
         path: 'add-word',
@@ -45,7 +45,7 @@ const routes: Routes = [
       },
     ],
   },
-
+  { path: 'settings', component: InitialSettingsComponent },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
 ];

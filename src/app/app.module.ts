@@ -24,6 +24,7 @@ import { InputFieldErrorTextComponent } from './components/input-field-error-tex
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
+import { InitialSettingsComponent } from './initial-settings/initial-settings.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
     InputFieldErrorTextComponent,
     WordQuizSettingsComponent,
     DeleteDialogComponent,
+    InitialSettingsComponent,
   ],
   imports: [
     BrowserModule,

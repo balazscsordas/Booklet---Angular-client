@@ -1,0 +1,45 @@
+<section
+  class="max-w-xl p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full"
+>
+  <section class="p-4 bg-secondary rounded-xl w-full">
+    <h1 class="mb-10 font-bold text-center">Set up your profile</h1>
+    <form [formGroup]="initialSettingsForm" (ngSubmit)="handleSubmit()">
+      <div class="flex flex-col">
+        <label class="mb-2">What is your primary language?</label>
+        <select
+          type="text"
+          formControlName="primaryLanguage"
+          class="p-2 rounded-md bg-transparent border-[1px]"
+        >
+          <option *ngFor="let option of languageOptions" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+
+      <div class="flex flex-col mt-10">
+        <label class="mb-2">Which language would you like to study?</label>
+        <select
+          type="text"
+          formControlName="secondaryLanguage"
+          class="p-2 rounded-md bg-transparent border-[1px]"
+        >
+          <option *ngFor="let option of languageOptions" [value]="option">
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <div class="text-center">
+        <button
+          class="mt-8 mb-4"
+          mat-raised-button
+          color="primary"
+          type="submit"
+          [disabled]="loading"
+        >
+          I am ready to start
+        </button>
+      </div>
+    </form>
+  </section>
+</section>
