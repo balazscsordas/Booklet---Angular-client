@@ -5,6 +5,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { catchError } from 'rxjs';
 import { AuthService } from 'src/app/services/auth/auth.service';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 import { environment } from 'src/environments/environment';
 
 interface Profile {
@@ -23,6 +24,7 @@ export class ChooseProfileComponent implements OnInit {
     private router: Router,
     private errorHandler: ErrorHandlerService,
     private cookieService: CookieService,
+    private quizSettings: WordQuizSettingsService,
   ) {}
   profiles?: Profile[];
 
@@ -61,6 +63,7 @@ export class ChooseProfileComponent implements OnInit {
         );
         this.auth.profileToken = res.profileToken;
         this.router.navigateByUrl('');
+        this.quizSettings.getLanguageOptions();
       });
   }
 }
