@@ -14,14 +14,14 @@ import { ProgressbarService } from '../services/progressbar/progressbar.service'
 export class AuthInterceptorInterceptor implements HttpInterceptor {
   constructor(
     private auth: AuthService,
-    private progressbarService: ProgressbarService,
+    private progressbar: ProgressbarService,
   ) {}
 
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    this.progressbarService.setIsLoading(true);
+    this.progressbar.show();
     const userToken = this.auth.userToken;
     const profileToken = this.auth.profileToken;
     const tokenToSend = profileToken ? profileToken : userToken;
@@ -32,11 +32,11 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
       tap(
         event => {
           if (event.type === HttpEventType.Response) {
-            this.progressbarService.setIsLoading(false);
+            this.progressbar.hide();
           }
         },
         error => {
-          this.progressbarService.setIsLoading(false);
+          this.progressbar.hide();
         },
       ),
     );

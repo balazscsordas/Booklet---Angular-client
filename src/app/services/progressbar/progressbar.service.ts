@@ -4,13 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class ProgressbarService {
-  private isLoading = false;
+  private isLoading = true;
 
   getIsLoading() {
     return this.isLoading;
   }
 
-  setIsLoading(isLoading: boolean) {
-    this.isLoading = isLoading;
+  show() {
+    this.isLoading = true;
+  }
+
+  hide() {
+    this.isLoading = false;
   }
 }
