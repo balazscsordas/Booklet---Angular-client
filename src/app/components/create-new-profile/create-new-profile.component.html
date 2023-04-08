@@ -2,10 +2,19 @@
   class="max-w-xl p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full"
 >
   <section class="p-4 bg-secondary rounded-xl w-full">
-    <h1 class="mb-10 font-bold text-center">Set up your profile</h1>
-    <form [formGroup]="initialSettingsForm" (ngSubmit)="handleSubmit()">
+    <h1 class="mb-10 font-bold text-center">Create profile</h1>
+    <form [formGroup]="newProfileForm" (ngSubmit)="handleSubmit()">
       <div class="flex flex-col">
-        <label class="mb-2">What is your primary language?</label>
+        <label class="mb-2">Name *</label>
+        <input
+          type="text"
+          formControlName="name"
+          class="p-2 rounded-md bg-transparent border-[1px]"
+        />
+      </div>
+
+      <div class="flex flex-col mt-10">
+        <label class="mb-2">What is your primary language? *</label>
         <select
           type="text"
           formControlName="primaryLanguage"
@@ -18,7 +27,7 @@
       </div>
 
       <div class="flex flex-col mt-10">
-        <label class="mb-2">Which language would you like to study?</label>
+        <label class="mb-2">Which language would you like to study? *</label>
         <select
           type="text"
           formControlName="secondaryLanguage"
@@ -37,7 +46,7 @@
           type="submit"
           [disabled]="loading"
         >
-          I am ready to start
+          Create
         </button>
       </div>
     </form>

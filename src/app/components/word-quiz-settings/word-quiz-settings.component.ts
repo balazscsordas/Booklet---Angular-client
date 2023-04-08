@@ -1,11 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { catchError } from 'rxjs';
-import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { LanguageOptionsService } from 'src/app/services/language-options/language-options.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-word-quiz-settings',
@@ -13,17 +10,16 @@ import { environment } from 'src/environments/environment';
 })
 export class WordQuizSettingsComponent implements OnInit {
   constructor(
-    private http: HttpClient,
     private router: Router,
-    private errorHandler: ErrorHandlerService,
     private snackbar: SnackbarService,
     public quizService: WordQuizSettingsService,
+    public languageOptionsService: LanguageOptionsService,
   ) {}
 
-  languageOptions: string[] | undefined;
-
   ngOnInit(): void {
-    this.getLanguageOptions();
+    if (!this.languageOptionsService.languageOptions) {
+      this.languageOptionsService.getLanguageOptions();
+    }
     this.quizService.disableInputsIfRandomLanguageChecked();
   }
 
@@ -44,14 +40,5 @@ export class WordQuizSettingsComponent implements OnInit {
       }
     }
     this.router.navigateByUrl('practice');
-  }
-
-  private getLanguageOptions() {
-    this.http
-      .get<string[]>(`${environment.apiBaseURL}Words/GetLanguageOptions`)
-      .pipe(catchError(error => this.errorHandler.handleError(error)))
-      .subscribe(res => {
-        this.languageOptions = res;
-      });
   }
 }

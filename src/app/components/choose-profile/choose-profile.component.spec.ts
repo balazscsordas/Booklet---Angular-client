@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TextInputComponent } from './text-input.component';
+import { ChooseProfileComponent } from './choose-profile.component';
 
-describe('TextInputComponent', () => {
-  let component: TextInputComponent;
-  let fixture: ComponentFixture<TextInputComponent>;
+describe('ChooseProfileComponent', () => {
+  let component: ChooseProfileComponent;
+  let fixture: ComponentFixture<ChooseProfileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TextInputComponent ]
+      declarations: [ ChooseProfileComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TextInputComponent);
+    fixture = TestBed.createComponent(ChooseProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -22,13 +22,17 @@
 </ng-container>
 
 <ng-container *ngIf="words && !loading">
-  <div
-    class="flex flex-row p-4 bg-secondary uppercase text-tetriary1 font-medium"
-  >
+  <div class="flex flex-row p-4 bg-secondary text-tetriary1 font-medium">
     <span class="mr-4">Id</span>
     <div class="flex flex-row w-full">
-      <span class="flex-1 px-2">Hun</span>
-      <span class="flex-1 px-2">Eng</span>
+      <ng-container *ngIf="languageOptionsService.languageOptions">
+        <span class="flex-1 px-2">{{
+          languageOptionsService.languageOptions[0]
+        }}</span>
+        <span class="flex-1 px-2">{{
+          languageOptionsService.languageOptions[1]
+        }}</span>
+      </ng-container>
     </div>
     <span class="ml-10"></span>
   </div>

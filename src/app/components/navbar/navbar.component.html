@@ -1,8 +1,6 @@
 <section class="bg-secondary sticky top-0 z-20">
-  <section class="max-w-6xl m-auto flex flex-row justify-evenly">
-    <a class="text-xs lg:text-base text-tetriary1 p-4" routerLink="/"
-      >Practice</a
-    >
+  <section class="max-w-6xl m-auto flex flex-row justify-evenly items-center">
+    <a class="text-xs lg:text-base text-tetriary1 p-4" routerLink="/">Study</a>
     <a class="text-xs lg:text-base text-tetriary1 p-4" routerLink="/add-word"
       >Add Word</a
     >
@@ -16,12 +14,16 @@
       >Login</a
     >
     <button
-      class="text-xs lg:text-base text-tetriary1 p-4"
+      mat-icon-button
       *ngIf="authenticated"
-      (click)="logout()"
-      type="button"
+      [matMenuTriggerFor]="beforeMenu"
+      class="text-xs lg:text-base text-tetriary1 p-4"
     >
-      Sign Out
+      <mat-icon>account_circle</mat-icon>
     </button>
+    <mat-menu #beforeMenu="matMenu" xPosition="before">
+      <button mat-menu-item (click)="goToProfilePage()">Profiles</button>
+      <button mat-menu-item (click)="logout()">Sign Out</button>
+    </mat-menu>
   </section>
 </section>

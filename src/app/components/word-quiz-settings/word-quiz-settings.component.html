@@ -1,4 +1,4 @@
-<h1 class="text-center">Practice Settings</h1>
+<h1 class="text-center">Study Mode Settings</h1>
 
 <section class="max-w-2xl bg-secondary rounded-xl m-auto p-4">
   <form [formGroup]="quizService.settingsForm" (ngSubmit)="handleSubmit()">
@@ -9,7 +9,10 @@
           class="p-2 rounded-md bg-transparent border-[1px]"
           formControlName="languageFrom"
         >
-          <option *ngFor="let option of languageOptions" [value]="option">
+          <option
+            *ngFor="let option of languageOptionsService.languageOptions"
+            [value]="option"
+          >
             {{ option }}
           </option>
         </select>
@@ -20,7 +23,10 @@
           class="p-2 rounded-md bg-transparent border-[1px]"
           formControlName="languageTo"
         >
-          <option *ngFor="let option of languageOptions" [value]="option">
+          <option
+            *ngFor="let option of languageOptionsService.languageOptions"
+            [value]="option"
+          >
             {{ option }}
           </option>
         </select>

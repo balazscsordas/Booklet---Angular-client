@@ -2,6 +2,9 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError } from 'rxjs';
+import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
+import { LanguageOptionsService } from 'src/app/services/language-options/language-options.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { environment } from 'src/environments/environment';
 
@@ -21,6 +24,8 @@ export class WordListComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private snackbar: SnackbarService,
+    private errorHandler: ErrorHandlerService,
+    public languageOptionsService: LanguageOptionsService,
   ) {}
 
   searchParam: string | null = this.getCurrentSearchParam();
@@ -34,6 +39,9 @@ export class WordListComponent implements OnInit {
   });
 
   ngOnInit() {
+    if (!this.languageOptionsService.languageOptions) {
+      this.languageOptionsService.getLanguageOptions();
+    }
     this.getWordList(this.page, this.searchParam);
     this.getMaxPageNumber();
   }
@@ -84,6 +92,7 @@ export class WordListComponent implements OnInit {
       .get<Word[]>(`${environment.apiBaseURL}Words/GetAll`, {
         params: searchParam ? { page, searchParam } : { page },
       })
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         if (page > 1 && !res) {
           this.goToPrevPage();
@@ -97,6 +106,7 @@ export class WordListComponent implements OnInit {
   private getMaxPageNumber() {
     this.http
       .get<number>(`${environment.apiBaseURL}Words/GetMaxPageNumber`)
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         this.maxPageNumber = res;
       });

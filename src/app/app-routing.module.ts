@@ -10,42 +10,53 @@ import { WordQuizComponent } from './components/word-quiz/word-quiz.component';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { WordQuizSettingsComponent } from './components/word-quiz-settings/word-quiz-settings.component';
 import { WordQuizGuard } from './guards/word-quiz/word-quiz.guard';
-import { InitialSettingsComponent } from './initial-settings/initial-settings.component';
+import { CreateNewProfileComponent } from './components/create-new-profile/create-new-profile.component';
+import { ChooseProfileComponent } from './components/choose-profile/choose-profile.component';
+import { ProfileGuard } from './guards/profile/profile.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, ProfileGuard],
     children: [
       {
         path: '',
         component: WordQuizSettingsComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, ProfileGuard],
       },
       {
         path: 'practice',
         component: WordQuizComponent,
-        canActivate: [AuthGuard, WordQuizGuard],
+        canActivate: [AuthGuard, ProfileGuard, WordQuizGuard],
       },
       {
         path: 'my-words/:page',
         component: WordListComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, ProfileGuard],
       },
       {
         path: 'add-word',
         component: AddWordComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, ProfileGuard],
       },
       {
         path: 'word/:id',
         component: WordDetailsComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, ProfileGuard],
       },
     ],
   },
-  { path: 'settings', component: InitialSettingsComponent },
+  {
+    path: 'create-profile',
+    component: CreateNewProfileComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'choose-profile',
+    component: ChooseProfileComponent,
+    canActivate: [AuthGuard],
+  },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
 ];

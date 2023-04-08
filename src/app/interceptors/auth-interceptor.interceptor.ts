@@ -14,11 +14,13 @@ export class AuthInterceptorInterceptor implements HttpInterceptor {
 
   intercept(
     request: HttpRequest<any>,
-    next: HttpHandler
+    next: HttpHandler,
   ): Observable<HttpEvent<any>> {
-    const accessToken = this.auth.accessToken;
+    const userToken = this.auth.userToken;
+    const profileToken = this.auth.profileToken;
+    const tokenToSend = profileToken ? profileToken : userToken;
     const authReq = request.clone({
-      setHeaders: { Authorization: `Bearer ${accessToken}` },
+      setHeaders: { Authorization: `Bearer ${tokenToSend}` },
     });
     return next.handle(authReq);
   }

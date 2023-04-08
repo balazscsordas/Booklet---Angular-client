@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -15,7 +14,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { WordDetailsComponent } from './components/word-details/word-details.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './components/login/login.component';
-import { TextInputComponent } from './components/text-input/text-input.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { AuthInterceptorInterceptor } from './interceptors/auth-interceptor.interceptor';
 import { LayoutComponent } from './components/layout/layout.component';
@@ -24,7 +22,9 @@ import { InputFieldErrorTextComponent } from './components/input-field-error-tex
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
-import { InitialSettingsComponent } from './initial-settings/initial-settings.component';
+import { CreateNewProfileComponent } from './components/create-new-profile/create-new-profile.component';
+import { ChooseProfileComponent } from './components/choose-profile/choose-profile.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -35,13 +35,13 @@ import { InitialSettingsComponent } from './initial-settings/initial-settings.co
     AddWordComponent,
     WordDetailsComponent,
     LoginComponent,
-    TextInputComponent,
     RegistrationComponent,
     LayoutComponent,
     InputFieldErrorTextComponent,
     WordQuizSettingsComponent,
     DeleteDialogComponent,
-    InitialSettingsComponent,
+    CreateNewProfileComponent,
+    ChooseProfileComponent,
   ],
   imports: [
     BrowserModule,
@@ -54,6 +54,7 @@ import { InitialSettingsComponent } from './initial-settings/initial-settings.co
     MatSnackBarModule,
     MatProgressBarModule,
     MatDialogModule,
+    MatMenuModule,
   ],
   providers: [
     {
