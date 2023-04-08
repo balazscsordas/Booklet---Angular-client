@@ -1,6 +1,6 @@
 <section>
   <mat-progress-bar
-    *ngIf="isLoading$ | async"
+    *ngIf="progressbarService.getIsLoading()"
     mode="indeterminate"
   ></mat-progress-bar>
   <router-outlet> </router-outlet>

@@ -1,17 +1,16 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProgressbarService {
-  private isLoading = new BehaviorSubject<boolean>(false);
+  private isLoading = false;
 
   getIsLoading() {
-    return this.isLoading.asObservable();
+    return this.isLoading;
   }
 
   setIsLoading(isLoading: boolean) {
-    this.isLoading.next(isLoading);
+    this.isLoading = isLoading;
   }
 }
