@@ -9,11 +9,12 @@ import { ErrorHandlerService } from '../../services/error-handler/error-handler.
 import { SnackbarService } from '../../services/snackbar/snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 
 interface Form {
   id: number | null;
-  hun: string | null;
-  eng: string | null;
+  primaryLanguage: string | null;
+  secondaryLanguage: string | null;
 }
 
 @Component({
@@ -28,22 +29,26 @@ export class WordDetailsComponent implements OnInit {
     private snackbar: SnackbarService,
     private errorHandler: ErrorHandlerService,
     private dialog: MatDialog,
+    public quizService: WordQuizSettingsService,
   ) {}
 
   loading = true;
   id: number = this.route.snapshot.params['id'];
   editWordForm = new FormGroup({
     id: new FormControl(0),
-    hun: new FormControl(''),
-    eng: new FormControl(''),
+    primaryLanguage: new FormControl(''),
+    secondaryLanguage: new FormControl(''),
   });
   prevWordForm: Form = {
     id: null,
-    hun: null,
-    eng: null,
+    primaryLanguage: null,
+    secondaryLanguage: null,
   };
 
   ngOnInit(): void {
+    if (!this.quizService.languageOptions) {
+      this.quizService.getLanguageOptions();
+    }
     this.getWord(this.id);
   }
 

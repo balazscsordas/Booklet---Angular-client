@@ -4,14 +4,14 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { catchError } from 'rxjs';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
-import { LanguageOptionsService } from 'src/app/services/language-options/language-options.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
+import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 import { environment } from 'src/environments/environment';
 
 interface Word {
   id: number;
-  hun: string;
-  eng: string;
+  primaryLanguage: string;
+  secondaryLanguage: string;
 }
 
 @Component({
@@ -25,7 +25,7 @@ export class WordListComponent implements OnInit {
     private router: Router,
     private snackbar: SnackbarService,
     private errorHandler: ErrorHandlerService,
-    public languageOptionsService: LanguageOptionsService,
+    public quizService: WordQuizSettingsService,
   ) {}
 
   searchParam: string | null = this.getCurrentSearchParam();
@@ -39,8 +39,8 @@ export class WordListComponent implements OnInit {
   });
 
   ngOnInit() {
-    if (!this.languageOptionsService.languageOptions) {
-      this.languageOptionsService.getLanguageOptions();
+    if (!this.quizService.languageOptions) {
+      this.quizService.getLanguageOptions();
     }
     this.getWordList(this.page, this.searchParam);
     this.getMaxPageNumber();

@@ -25,12 +25,12 @@
   <div class="flex flex-row p-4 bg-secondary text-tetriary1 font-medium">
     <span class="mr-4">Id</span>
     <div class="flex flex-row w-full">
-      <ng-container *ngIf="languageOptionsService.languageOptions">
+      <ng-container *ngIf="quizService.languageOptions">
         <span class="flex-1 px-2">{{
-          languageOptionsService.languageOptions[0]
+          quizService.languageOptions.primaryLanguage
         }}</span>
         <span class="flex-1 px-2">{{
-          languageOptionsService.languageOptions[1]
+          quizService.languageOptions.secondaryLanguage
         }}</span>
       </ng-container>
     </div>
@@ -43,8 +43,12 @@
     >
       <span class="mr-4">{{ i + 1 }}</span>
       <div class="flex flex-row w-full">
-        <span class="flex-1 px-2 items-center flex">{{ word.hun }}</span>
-        <span class="flex-1 px-2 items-center flex">{{ word.eng }}</span>
+        <span class="flex-1 px-2 items-center flex">{{
+          word.primaryLanguage
+        }}</span>
+        <span class="flex-1 px-2 items-center flex">{{
+          word.secondaryLanguage
+        }}</span>
       </div>
       <button (click)="goToDetailsPage(word.id)" mat-icon-button>
         <mat-icon class="text-base">edit</mat-icon>

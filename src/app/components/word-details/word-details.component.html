@@ -1,37 +1,39 @@
 <h1 class="text-center">Details</h1>
-<form *ngIf="!loading" [formGroup]="editWordForm" (ngSubmit)="handleSubmit()">
-  <section class="grid md:grid-cols-2 gap-4">
-    <div class="flex flex-col">
-      <label>Hun</label>
-      <input
-        type="text"
-        formControlName="hun"
-        class="p-2 rounded-md bg-transparent border-[1px]"
-      />
-    </div>
+<ng-container *ngIf="!loading && quizService.languageOptions">
+  <form [formGroup]="editWordForm" (ngSubmit)="handleSubmit()">
+    <section class="grid md:grid-cols-2 gap-4">
+      <div class="flex flex-col">
+        <label>{{ quizService.languageOptions.primaryLanguage }}</label>
+        <input
+          type="text"
+          formControlName="primaryLanguage"
+          class="p-2 rounded-md bg-transparent border-[1px]"
+        />
+      </div>
 
-    <div class="flex flex-col">
-      <label>Eng</label>
-      <input
-        type="text"
-        formControlName="eng"
-        class="p-2 rounded-md bg-transparent border-[1px]"
-      />
-    </div>
-  </section>
+      <div class="flex flex-col">
+        <label>{{ quizService.languageOptions.secondaryLanguage }}</label>
+        <input
+          type="text"
+          formControlName="secondaryLanguage"
+          class="p-2 rounded-md bg-transparent border-[1px]"
+        />
+      </div>
+    </section>
 
-  <div class="flex flex-row justify-center">
-    <button class="mt-8 mx-3" mat-raised-button color="primary" type="submit">
-      Edit
-    </button>
-    <button
-      class="mt-8 mx-3"
-      mat-raised-button
-      color="primary"
-      type="button"
-      (click)="openDeleteDialog()"
-    >
-      Delete
-    </button>
-  </div>
-</form>
+    <div class="flex flex-row justify-center">
+      <button class="mt-8 mx-3" mat-raised-button color="primary" type="submit">
+        Edit
+      </button>
+      <button
+        class="mt-8 mx-3"
+        mat-raised-button
+        color="primary"
+        type="button"
+        (click)="openDeleteDialog()"
+      >
+        Delete
+      </button>
+    </div>
+  </form>
+</ng-container>

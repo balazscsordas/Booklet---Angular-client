@@ -21,7 +21,7 @@ export class WordQuizComponent implements OnInit {
     private http: HttpClient,
     private errorHandler: ErrorHandlerService,
     private quizService: WordQuizSettingsService,
-    private router: Router
+    private router: Router,
   ) {}
 
   loading = true;
@@ -46,19 +46,23 @@ export class WordQuizComponent implements OnInit {
   private getWord(
     languageFrom: string | null,
     languageTo: string | null,
-    randomLanguage: boolean
+    randomLanguage: boolean,
   ) {
     this.showSolution = false;
-    const params = new HttpParams().set('randomLanguage', randomLanguage);
-    languageFrom && params.append('languageFrom', languageFrom);
-    languageTo && params.append('languageTo', languageTo);
+    const params = new HttpParams()
+      .set('randomLanguage', randomLanguage)
+      .set(
+        'languageFrom',
+        languageFrom === this.quizService.languageOptions?.primaryLanguage
+          ? 'primaryLanguage'
+          : 'secondaryLanguage',
+      );
     this.http
       .get<WordInterface>(`${environment.apiBaseURL}Words/GetOneRandom`, {
-        withCredentials: true,
         params,
       })
-      .pipe(catchError((error) => this.errorHandler.handleError(error)))
-      .subscribe((res) => {
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
         this.word = res;
         this.loading = false;
       });

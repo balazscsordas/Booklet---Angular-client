@@ -1,17 +1,30 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ErrorHandlerService } from '../error-handler/error-handler.service';
+import { environment } from 'src/environments/environment';
+import { catchError } from 'rxjs';
+
+interface LanguageOptions {
+  primaryLanguage: string;
+  secondaryLanguage: string;
+}
 
 @Injectable({
   providedIn: 'root',
 })
 export class WordQuizSettingsService {
-  constructor() {}
+  constructor(
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService,
+  ) {}
 
   settingsForm = new FormGroup({
     languageFrom: new FormControl<string | null>(null, Validators.required),
     languageTo: new FormControl<string | null>(null, Validators.required),
     randomLanguage: new FormControl<boolean>(false),
   });
+  languageOptions: LanguageOptions | undefined;
 
   disableInputsIfRandomLanguageChecked() {
     this.settingsForm
@@ -26,6 +39,17 @@ export class WordQuizSettingsService {
           this.settingsForm.get('languageFrom')?.enable();
           this.settingsForm.get('languageTo')?.enable();
         }
+      });
+  }
+
+  getLanguageOptions() {
+    this.http
+      .get<LanguageOptions>(
+        `${environment.apiBaseURL}Profile/GetLanguageOptions`,
+      )
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
+        this.languageOptions = res;
       });
   }
 }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { LanguageOptionsService } from 'src/app/services/language-options/language-options.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 
@@ -13,12 +12,11 @@ export class WordQuizSettingsComponent implements OnInit {
     private router: Router,
     private snackbar: SnackbarService,
     public quizService: WordQuizSettingsService,
-    public languageOptionsService: LanguageOptionsService,
   ) {}
 
   ngOnInit(): void {
-    if (!this.languageOptionsService.languageOptions) {
-      this.languageOptionsService.getLanguageOptions();
+    if (!this.quizService.languageOptions) {
+      this.quizService.getLanguageOptions();
     }
     this.quizService.disableInputsIfRandomLanguageChecked();
   }
