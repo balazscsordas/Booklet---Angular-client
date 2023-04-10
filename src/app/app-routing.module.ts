@@ -13,6 +13,8 @@ import { WordQuizGuard } from './guards/word-quiz/word-quiz.guard';
 import { CreateNewProfileComponent } from './components/create-new-profile/create-new-profile.component';
 import { ChooseProfileComponent } from './components/choose-profile/choose-profile.component';
 import { ProfileGuard } from './guards/profile/profile.guard';
+import { ForgottenPasswordInputComponent } from './components/forgotten-password/forgotten-password-input/forgotten-password-input.component';
+import { NewPasswordComponent } from './components/forgotten-password/new-password/new-password.component';
 
 const routes: Routes = [
   {
@@ -59,6 +61,9 @@ const routes: Routes = [
   },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
+  { path: 'forgotten-password', component: ForgottenPasswordInputComponent },
+
+  { path: 'set-new-password/:token', component: NewPasswordComponent },
 ];
 
 @NgModule({

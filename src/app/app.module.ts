@@ -25,6 +25,8 @@ import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.
 import { CreateNewProfileComponent } from './components/create-new-profile/create-new-profile.component';
 import { ChooseProfileComponent } from './components/choose-profile/choose-profile.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { ForgottenPasswordInputComponent } from './components/forgotten-password/forgotten-password-input/forgotten-password-input.component';
+import { NewPasswordComponent } from './components/forgotten-password/new-password/new-password.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { MatMenuModule } from '@angular/material/menu';
     DeleteDialogComponent,
     CreateNewProfileComponent,
     ChooseProfileComponent,
+    ForgottenPasswordInputComponent,
+    NewPasswordComponent,
   ],
   imports: [
     BrowserModule,
