@@ -43,6 +43,18 @@ export class WordQuizComponent implements OnInit {
     }
   }
 
+  exitSession() {
+    this.router.navigateByUrl('');
+  }
+
+  setShowSolution() {
+    this.showSolution = true;
+  }
+
+  sayWord(text: string) {
+    this.getAudioUrl(text);
+  }
+
   private getWord(
     languageFrom: string | null,
     languageTo: string | null,
@@ -68,11 +80,22 @@ export class WordQuizComponent implements OnInit {
       });
   }
 
-  exitSession() {
-    this.router.navigateByUrl('');
+  getAudioUrl(text: string) {
+    const params = new HttpParams().set('text', text);
+    this.http
+      .get<{ src: string }>(`${environment.apiBaseURL}Audio/GetAudioUrl`, {
+        params,
+      })
+      .pipe(catchError(error => this.errorHandler.handleError(error)))
+      .subscribe(res => {
+        this.playAudio(res.src);
+      });
   }
 
-  setShowSolution() {
-    this.showSolution = true;
+  private playAudio(src: string) {
+    const audio = new Audio();
+    audio.src = src;
+    audio.load();
+    audio.play();
   }
 }

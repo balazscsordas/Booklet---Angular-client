@@ -2,17 +2,16 @@
   <section
     class="text-center h-[70vh] flex items-center justify-center flex-col"
   >
-    <p class="text-3xl font-medium text-tetriary1">{{ word.wordFrom }}</p>
+    <p class="text-3xl font-medium text-tetriary1">
+      {{ word.wordFrom }}
+    </p>
     <p class="my-4 text-tetriary1">-</p>
-    <p *ngIf="showSolution" class="text-3xl font-medium text-tetriary1">
+    <p
+      class="text-3xl font-medium text-tetriary1"
+      [ngStyle]="{ visibility: showSolution ? 'visible' : 'hidden' }"
+    >
       {{ word.wordTo }}
     </p>
-    <input
-      *ngIf="!showSolution"
-      type="text"
-      value=""
-      class="text-3xl font-medium bg-transparent"
-    />
   </section>
   <section
     class="bottom-0 left-0 right-0 absolute p-6 border-t-[1px] text-center"

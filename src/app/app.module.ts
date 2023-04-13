@@ -27,6 +27,7 @@ import { ChooseProfileComponent } from './components/choose-profile/choose-profi
 import { MatMenuModule } from '@angular/material/menu';
 import { ForgottenPasswordInputComponent } from './components/forgotten-password/forgotten-password-input/forgotten-password-input.component';
 import { NewPasswordComponent } from './components/forgotten-password/new-password/new-password.component';
+import { TranslatorComponent } from './components/translator/translator.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { NewPasswordComponent } from './components/forgotten-password/new-passwo
     ChooseProfileComponent,
     ForgottenPasswordInputComponent,
     NewPasswordComponent,
+    TranslatorComponent,
   ],
   imports: [
     BrowserModule,

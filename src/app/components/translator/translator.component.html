@@ -1,0 +1,45 @@
+<h2 class="mt-12 mb-6 text-center font-medium">Translator</h2>
+<form [formGroup]="translatorForm" (ngSubmit)="handleSubmit()">
+  <section class="grid md:grid-cols-2 gap-4">
+    <div class="flex flex-col">
+      <select
+        formControlName="translateFrom"
+        class="p-2 rounded-md bg-transparent border-[1px] mr-auto"
+      >
+        <option
+          *ngFor="let option of languageFromOptions"
+          [value]="option.value"
+        >
+          {{ option.name }}
+        </option>
+      </select>
+      <textarea
+        type="text"
+        formControlName="textToTranslate"
+        class="p-2 rounded-md bg-transparent border-[1px]"
+        rows="6"
+      ></textarea>
+    </div>
+    <div class="flex flex-col">
+      <select
+        formControlName="translateTo"
+        class="p-2 rounded-md bg-transparent border-[1px] mr-auto"
+      >
+        <option *ngFor="let option of languageToOptions" [value]="option.value">
+          {{ option.name }}
+        </option>
+      </select>
+      <textarea
+        type="text"
+        disabled
+        [value]="translatedText"
+        class="p-2 rounded-md bg-transparent border-[1px]"
+        rows="6"
+      ></textarea>
+    </div>
+  </section>
+
+  <button class="mt-8" mat-raised-button color="primary" type="submit">
+    Translate
+  </button>
+</form>
