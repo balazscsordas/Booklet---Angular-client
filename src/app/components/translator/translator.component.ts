@@ -10,7 +10,6 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-translator',
   templateUrl: './translator.component.html',
-  styleUrls: ['./translator.component.scss'],
 })
 export class TranslatorComponent implements OnInit {
   constructor(
