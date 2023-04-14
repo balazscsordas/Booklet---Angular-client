@@ -2,7 +2,7 @@
 <form [formGroup]="translatorForm" (ngSubmit)="handleSubmit()">
   <section class="grid md:grid-cols-2 gap-4">
     <div class="flex flex-col">
-      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="mb-2">
+      <nav mat-tab-nav-bar class="mb-2">
         <a
           mat-tab-link
           *ngFor="let option of languageFromOptions"
@@ -12,7 +12,6 @@
           {{ option.name }}
         </a>
       </nav>
-      <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       <textarea
         type="text"
         formControlName="textToTranslate"
@@ -21,7 +20,7 @@
       ></textarea>
     </div>
     <div class="flex flex-col">
-      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="mb-2">
+      <nav mat-tab-nav-bar class="mb-2">
         <a
           mat-tab-link
           *ngFor="let option of languageToOptions"
@@ -31,7 +30,6 @@
           {{ option.name }}
         </a>
       </nav>
-      <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       <textarea
         type="text"
         disabled
