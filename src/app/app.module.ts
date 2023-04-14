@@ -28,6 +28,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { ForgottenPasswordInputComponent } from './components/forgotten-password/forgotten-password-input/forgotten-password-input.component';
 import { NewPasswordComponent } from './components/forgotten-password/new-password/new-password.component';
 import { TranslatorComponent } from './components/translator/translator.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { TranslatorComponent } from './components/translator/translator.componen
     MatProgressBarModule,
     MatDialogModule,
     MatMenuModule,
+    MatTabsModule,
   ],
   providers: [
     {

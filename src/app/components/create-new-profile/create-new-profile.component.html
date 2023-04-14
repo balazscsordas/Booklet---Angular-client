@@ -6,11 +6,7 @@
     <form [formGroup]="newProfileForm" (ngSubmit)="handleSubmit()">
       <div class="flex flex-col">
         <label class="mb-2">Name *</label>
-        <input
-          type="text"
-          formControlName="name"
-          class="p-2 rounded-md bg-transparent border-[1px]"
-        />
+        <input type="text" formControlName="name" class="input-design" />
       </div>
 
       <div class="flex flex-col mt-10">
@@ -18,7 +14,7 @@
         <select
           type="text"
           formControlName="primaryLanguage"
-          class="p-2 rounded-md bg-transparent border-[1px]"
+          class="input-design"
         >
           <option *ngFor="let option of languageOptions" [value]="option">
             {{ option }}
@@ -31,7 +27,7 @@
         <select
           type="text"
           formControlName="secondaryLanguage"
-          class="p-2 rounded-md bg-transparent border-[1px]"
+          class="input-design"
         >
           <option *ngFor="let option of languageOptions" [value]="option">
             {{ option }}

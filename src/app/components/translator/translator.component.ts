@@ -10,6 +10,7 @@ import { environment } from 'src/environments/environment';
 @Component({
   selector: 'app-translator',
   templateUrl: './translator.component.html',
+  styleUrls: ['./translator.component.scss'],
 })
 export class TranslatorComponent implements OnInit {
   constructor(
@@ -19,12 +20,6 @@ export class TranslatorComponent implements OnInit {
     public quizService: WordQuizSettingsService,
   ) {}
 
-  public translatorForm = new FormGroup({
-    textToTranslate: new FormControl<string | null>(null, Validators.required),
-    translateFrom: new FormControl<string | null>(null, Validators.required),
-    translateTo: new FormControl<string | null>(null, Validators.required),
-  });
-  translatedText: string | null = null;
   languageToOptions = [
     {
       name: 'English',
@@ -58,6 +53,19 @@ export class TranslatorComponent implements OnInit {
       value: 'ge',
     },
   ];
+
+  public translatorForm = new FormGroup({
+    textToTranslate: new FormControl<string | null>(null, Validators.required),
+    translateFrom: new FormControl(
+      this.languageFromOptions[0].value,
+      Validators.required,
+    ),
+    translateTo: new FormControl(
+      this.languageToOptions[0].value,
+      Validators.required,
+    ),
+  });
+  translatedText: string | null = null;
 
   ngOnInit(): void {
     if (!this.quizService.languageOptions) {

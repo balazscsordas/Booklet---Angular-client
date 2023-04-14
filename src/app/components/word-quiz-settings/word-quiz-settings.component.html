@@ -1,15 +1,12 @@
 <h1 class="text-center">Study Mode</h1>
 
 <ng-container *ngIf="quizService.languageOptions">
-  <section class="max-w-2xl bg-secondary rounded-xl m-auto p-4">
+  <section class="max-w-7xl bg-secondary rounded-xl m-auto p-4">
     <form [formGroup]="quizService.settingsForm" (ngSubmit)="handleSubmit()">
       <section class="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div class="flex flex-col">
           <label>Language From *</label>
-          <select
-            class="p-2 rounded-md bg-transparent border-[1px]"
-            formControlName="languageFrom"
-          >
+          <select class="input-design" formControlName="languageFrom">
             <option [value]="quizService.languageOptions.primaryLanguage">
               {{ quizService.languageOptions.primaryLanguage }}
             </option>
@@ -20,10 +17,7 @@
         </div>
         <div class="flex flex-col">
           <label>Language To *</label>
-          <select
-            class="p-2 rounded-md bg-transparent border-[1px]"
-            formControlName="languageTo"
-          >
+          <select class="input-design" formControlName="languageTo">
             <option [value]="quizService.languageOptions.primaryLanguage">
               {{ quizService.languageOptions.primaryLanguage }}
             </option>

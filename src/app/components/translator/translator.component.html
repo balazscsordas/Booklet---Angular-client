@@ -2,38 +2,41 @@
 <form [formGroup]="translatorForm" (ngSubmit)="handleSubmit()">
   <section class="grid md:grid-cols-2 gap-4">
     <div class="flex flex-col">
-      <select
-        formControlName="translateFrom"
-        class="p-2 rounded-md bg-transparent border-[1px] mr-auto"
-      >
-        <option
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="mb-2">
+        <a
+          mat-tab-link
           *ngFor="let option of languageFromOptions"
-          [value]="option.value"
+          (click)="translatorForm.value.translateFrom = option.value"
+          [active]="translatorForm.value.translateFrom == option.value"
         >
           {{ option.name }}
-        </option>
-      </select>
+        </a>
+      </nav>
+      <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       <textarea
         type="text"
         formControlName="textToTranslate"
-        class="p-2 rounded-md bg-transparent border-[1px]"
+        class="input-design"
         rows="6"
       ></textarea>
     </div>
     <div class="flex flex-col">
-      <select
-        formControlName="translateTo"
-        class="p-2 rounded-md bg-transparent border-[1px] mr-auto"
-      >
-        <option *ngFor="let option of languageToOptions" [value]="option.value">
+      <nav mat-tab-nav-bar [tabPanel]="tabPanel" class="mb-2">
+        <a
+          mat-tab-link
+          *ngFor="let option of languageToOptions"
+          (click)="translatorForm.value.translateTo = option.value"
+          [active]="translatorForm.value.translateTo == option.value"
+        >
           {{ option.name }}
-        </option>
-      </select>
+        </a>
+      </nav>
+      <mat-tab-nav-panel #tabPanel></mat-tab-nav-panel>
       <textarea
         type="text"
         disabled
         [value]="translatedText"
-        class="p-2 rounded-md bg-transparent border-[1px]"
+        class="input-design"
         rows="6"
       ></textarea>
     </div>

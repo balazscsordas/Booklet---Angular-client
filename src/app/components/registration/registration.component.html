@@ -12,7 +12,7 @@
             autofocus
             autocomplete="email"
             formControlName="email"
-            class="p-2 rounded-md bg-transparent border-[1px]"
+            class="input-design"
           />
           <app-input-field-error-text
             *ngIf="registrationForm.value.email && registrationForm.controls.email.errors?.['email']"
@@ -25,7 +25,7 @@
           <input
             type="password"
             formControlName="password"
-            class="p-2 rounded-md bg-transparent border-[1px]"
+            class="input-design"
           />
           <app-input-field-error-text
             *ngIf="registrationForm.value.password && registrationForm.controls.password.errors?.['minlength']"
