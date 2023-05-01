@@ -8,7 +8,7 @@ import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 import { environment } from 'src/environments/environment';
 
-interface Word {
+export interface IWord {
   id: number;
   primaryLanguage: string;
   secondaryLanguage: string;
@@ -30,7 +30,7 @@ export class WordListComponent implements OnInit {
 
   searchParam: string | null = this.getCurrentSearchParam();
   loading = true;
-  words: Word[] | undefined;
+  words: IWord[] | undefined;
   page: number = Number(this.route.snapshot.params['page']);
   maxPageNumber = 1;
 
@@ -89,7 +89,7 @@ export class WordListComponent implements OnInit {
 
   private getWordList(page: number, searchParam: string | null) {
     this.http
-      .get<Word[]>(`${environment.apiBaseURL}Words/GetAll`, {
+      .get<IWord[]>(`${environment.apiBaseURL}Words/GetAll`, {
         params: searchParam ? { page, searchParam } : { page },
       })
       .pipe(catchError(error => this.errorHandler.handleError(error)))
