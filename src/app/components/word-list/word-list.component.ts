@@ -7,6 +7,7 @@ import { ErrorHandlerService } from 'src/app/services/error-handler/error-handle
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 import { environment } from 'src/environments/environment';
+import { WordListService } from './service/word-list.service';
 
 export interface IWord {
   id: number;
@@ -21,17 +22,17 @@ export interface IWord {
 export class WordListComponent implements OnInit {
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private router: Router,
     private snackbar: SnackbarService,
     private errorHandler: ErrorHandlerService,
-    public quizService: WordQuizSettingsService,
+    public quizSettingsService: WordQuizSettingsService,
+    private wordListService: WordListService,
   ) {}
 
   searchParam: string | null = this.getCurrentSearchParam();
-  loading = true;
   words: IWord[] | undefined;
-  page: number = Number(this.route.snapshot.params['page']);
+  page: number = Number(this.activatedRoute.snapshot.params['page']);
   maxPageNumber = 1;
 
   searchForm = new FormGroup({
@@ -39,10 +40,10 @@ export class WordListComponent implements OnInit {
   });
 
   ngOnInit() {
-    if (!this.quizService.languageOptions) {
-      this.quizService.getLanguageOptions();
+    if (!this.quizSettingsService.languageOptions) {
+      this.quizSettingsService.getLanguageOptions();
     }
-    this.getWordList(this.page, this.searchParam);
+    this.words = this.activatedRoute.snapshot.data['words'];
     this.getMaxPageNumber();
   }
 
@@ -50,7 +51,11 @@ export class WordListComponent implements OnInit {
     if (this.page < this.maxPageNumber) {
       this.page = this.page + 1;
       this.router.navigate([`/my-words/${this.page}`]);
-      this.getWordList(this.page, this.searchParam);
+      this.wordListService
+        .getWordList(this.page, this.searchParam)
+        .subscribe(res => {
+          this.words = res;
+        });
     }
   }
 
@@ -58,7 +63,11 @@ export class WordListComponent implements OnInit {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.router.navigate([`/my-words/${this.page}`]);
-      this.getWordList(this.page, this.searchParam);
+      this.wordListService
+        .getWordList(this.page, this.searchParam)
+        .subscribe(res => {
+          this.words = res;
+        });
     }
   }
 
@@ -76,7 +85,11 @@ export class WordListComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
       this.searchParam = searchInput;
-      this.getWordList(this.page, searchInput);
+      this.wordListService
+        .getWordList(this.page, searchInput)
+        .subscribe(res => {
+          this.words = res;
+        });
     } else {
       this.snackbar.error('Please fill out the search input field.');
     }
@@ -84,23 +97,9 @@ export class WordListComponent implements OnInit {
 
   clearSearchInput() {
     this.searchForm.reset();
-    this.getWordList(this.page, null);
-  }
-
-  private getWordList(page: number, searchParam: string | null) {
-    this.http
-      .get<IWord[]>(`${environment.apiBaseURL}Words/GetAll`, {
-        params: searchParam ? { page, searchParam } : { page },
-      })
-      .pipe(catchError(error => this.errorHandler.handleError(error)))
-      .subscribe(res => {
-        if (page > 1 && !res) {
-          this.goToPrevPage();
-        } else {
-          this.words = res;
-          this.loading = false;
-        }
-      });
+    this.wordListService.getWordList(this.page, null).subscribe(res => {
+      this.words = res;
+    });
   }
 
   private getMaxPageNumber() {
@@ -113,7 +112,8 @@ export class WordListComponent implements OnInit {
   }
 
   private getCurrentSearchParam() {
-    const searchParam = this.route.snapshot.queryParamMap.get('search');
+    const searchParam =
+      this.activatedRoute.snapshot.queryParamMap.get('search');
     if (!searchParam) {
       return null;
     } else {

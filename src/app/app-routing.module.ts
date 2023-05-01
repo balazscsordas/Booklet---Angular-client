@@ -19,6 +19,7 @@ import { ChooseProfileResolver } from './components/choose-profile/resolver/choo
 import { WordQuizSettingsResolver } from './components/word-quiz-settings/resolver/word-quiz-settings.resolver';
 import { WordDetailsResolver } from './components/word-details/resolver/word-details.resolver';
 import { WordQuizResolver } from './components/word-quiz/resolver/word-quiz.resolver';
+import { WordListResolver } from './components/word-list/resolver/word-list.resolver';
 
 const routes: Routes = [
   {
@@ -42,6 +43,7 @@ const routes: Routes = [
         path: 'my-words/:page',
         component: WordListComponent,
         canActivate: [AuthGuard, ProfileGuard],
+        resolve: { words: WordListResolver },
       },
       {
         path: 'add-word',

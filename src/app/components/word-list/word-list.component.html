@@ -1,36 +1,34 @@
 <h1 class="text-center">My Words</h1>
 
-<ng-container *ngIf="!loading">
-  <form
-    [formGroup]="searchForm"
-    (ngSubmit)="searchSubmit()"
-    class="relative mb-8 max-w-4xl mx-auto"
+<form
+  [formGroup]="searchForm"
+  (ngSubmit)="searchSubmit()"
+  class="relative mb-8 max-w-4xl mx-auto"
+>
+  <input
+    type="text"
+    placeholder="Search"
+    formControlName="searchInput"
+    class="p-2 rounded-md bg-transparent border-[1px] w-full pr-10"
+  />
+  <button
+    type="submit"
+    class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
   >
-    <input
-      type="text"
-      placeholder="Search"
-      formControlName="searchInput"
-      class="p-2 rounded-md bg-transparent border-[1px] w-full pr-10"
-    />
-    <button
-      type="submit"
-      class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
-    >
-      <mat-icon>search</mat-icon>
-    </button>
-  </form>
-</ng-container>
+    <mat-icon>search</mat-icon>
+  </button>
+</form>
 
-<ng-container *ngIf="words && !loading">
+<ng-container *ngIf="words">
   <div class="flex flex-row p-4 bg-secondary text-tetriary1 font-medium">
     <span class="mr-4">Id</span>
     <div class="flex flex-row w-full">
-      <ng-container *ngIf="quizService.languageOptions">
+      <ng-container *ngIf="quizSettingsService.languageOptions">
         <span class="flex-1 px-2">{{
-          quizService.languageOptions.primaryLanguage
+          quizSettingsService.languageOptions.primaryLanguage
         }}</span>
         <span class="flex-1 px-2">{{
-          quizService.languageOptions.secondaryLanguage
+          quizSettingsService.languageOptions.secondaryLanguage
         }}</span>
       </ng-container>
     </div>
@@ -69,7 +67,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="!words && !loading! && !searchParam">
+<ng-container *ngIf="!words && !searchParam">
   <div class="text-center">
     <p>You haven't added any word yet!</p>
     <button
@@ -84,7 +82,7 @@
   </div>
 </ng-container>
 
-<ng-container *ngIf="!words && !loading! && searchParam">
+<ng-container *ngIf="!words && searchParam">
   <div class="text-center">
     <p>There are no words matching the search criteria.</p>
     <button
