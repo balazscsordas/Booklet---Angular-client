@@ -1,4 +1,4 @@
-<ng-container *ngIf="word && !loading">
+<ng-container *ngIf="word">
   <section
     class="text-center h-[70vh] flex items-center justify-center flex-col"
   >
@@ -40,7 +40,7 @@
   </section>
 </ng-container>
 
-<ng-container *ngIf="!word && !loading">
+<ng-container *ngIf="!word">
   <h1 class="text-center">Oops..</h1>
 
   <div class="text-center">

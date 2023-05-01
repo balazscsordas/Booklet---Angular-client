@@ -1,12 +1,9 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { catchError } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { WordQuizService } from './service/word-quiz.service';
 
-interface WordInterface {
+export interface IWordInterface {
   id: number;
   wordFrom: string;
   wordTo: string;
@@ -18,28 +15,30 @@ interface WordInterface {
 })
 export class WordQuizComponent implements OnInit {
   constructor(
-    private http: HttpClient,
-    private errorHandler: ErrorHandlerService,
-    private quizService: WordQuizSettingsService,
     private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private wordQuiz: WordQuizService,
+    private wordQuizSettings: WordQuizSettingsService,
   ) {}
 
-  loading = true;
-  word: WordInterface | undefined;
+  word: IWordInterface | undefined;
   showSolution = false;
-  languageFrom = this.quizService.settingsForm.getRawValue().languageFrom;
-  languageTo = this.quizService.settingsForm.getRawValue().languageTo;
-  randomLanguage = this.quizService.settingsForm.getRawValue().randomLanguage;
+  languageFrom = this.wordQuizSettings.settingsForm.getRawValue().languageFrom;
+  randomLanguage =
+    !this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
 
   ngOnInit() {
-    if (this.randomLanguage !== null) {
-      this.getWord(this.languageFrom, this.languageTo, this.randomLanguage);
-    }
+    this.word = this.activatedRoute.snapshot.data['word'];
   }
 
   getNextWord() {
     if (this.randomLanguage !== null) {
-      this.getWord(this.languageFrom, this.languageTo, this.randomLanguage);
+      this.showSolution = false;
+      this.wordQuiz
+        .getWord(this.languageFrom, this.randomLanguage)
+        .subscribe(res => {
+          this.word = res;
+        });
     }
   }
 
@@ -49,53 +48,5 @@ export class WordQuizComponent implements OnInit {
 
   setShowSolution() {
     this.showSolution = true;
-  }
-
-  sayWord(text: string) {
-    this.getAudioUrl(text);
-  }
-
-  private getWord(
-    languageFrom: string | null,
-    languageTo: string | null,
-    randomLanguage: boolean,
-  ) {
-    this.showSolution = false;
-    const params = new HttpParams()
-      .set('randomLanguage', randomLanguage)
-      .set(
-        'languageFrom',
-        languageFrom === this.quizService.languageOptions?.primaryLanguage
-          ? 'primaryLanguage'
-          : 'secondaryLanguage',
-      );
-    this.http
-      .get<WordInterface>(`${environment.apiBaseURL}Words/GetOneRandom`, {
-        params,
-      })
-      .pipe(catchError(error => this.errorHandler.handleError(error)))
-      .subscribe(res => {
-        this.word = res;
-        this.loading = false;
-      });
-  }
-
-  getAudioUrl(text: string) {
-    const params = new HttpParams().set('text', text);
-    this.http
-      .get<{ src: string }>(`${environment.apiBaseURL}Audio/GetAudioUrl`, {
-        params,
-      })
-      .pipe(catchError(error => this.errorHandler.handleError(error)))
-      .subscribe(res => {
-        this.playAudio(res.src);
-      });
-  }
-
-  private playAudio(src: string) {
-    const audio = new Audio();
-    audio.src = src;
-    audio.load();
-    audio.play();
   }
 }

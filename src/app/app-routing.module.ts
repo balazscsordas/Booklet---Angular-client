@@ -18,6 +18,7 @@ import { NewPasswordComponent } from './components/forgotten-password/new-passwo
 import { ChooseProfileResolver } from './components/choose-profile/resolver/choose-profile.resolver';
 import { WordQuizSettingsResolver } from './components/word-quiz-settings/resolver/word-quiz-settings.resolver';
 import { WordDetailsResolver } from './components/word-details/resolver/word-details.resolver';
+import { WordQuizResolver } from './components/word-quiz/resolver/word-quiz.resolver';
 
 const routes: Routes = [
   {
@@ -35,6 +36,7 @@ const routes: Routes = [
         path: 'practice',
         component: WordQuizComponent,
         canActivate: [AuthGuard, ProfileGuard, WordQuizGuard],
+        resolve: { word: WordQuizResolver },
       },
       {
         path: 'my-words/:page',
