@@ -36,10 +36,7 @@ export class RegistrationComponent {
     ) {
       this.snackbar.error('Both fields are required');
     }
-    if (
-      !this.registrationForm.controls.email.errors &&
-      !this.registrationForm.controls.password.errors
-    ) {
+    if (this.registrationForm.valid) {
       this.sendRegistrationCredentials(this.registrationForm);
       this.registrationForm.reset();
     }

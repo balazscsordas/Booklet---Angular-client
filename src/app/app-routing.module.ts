@@ -15,6 +15,7 @@ import { ChooseProfileComponent } from './components/choose-profile/choose-profi
 import { ProfileGuard } from './guards/profile/profile.guard';
 import { ForgottenPasswordInputComponent } from './components/forgotten-password/forgotten-password-input/forgotten-password-input.component';
 import { NewPasswordComponent } from './components/forgotten-password/new-password/new-password.component';
+import { ChooseProfileResolver } from './components/choose-profile/resolver/choose-profile.resolver';
 
 const routes: Routes = [
   {
@@ -58,6 +59,9 @@ const routes: Routes = [
     path: 'choose-profile',
     component: ChooseProfileComponent,
     canActivate: [AuthGuard],
+    resolve: {
+      profiles: ChooseProfileResolver,
+    },
   },
   { path: 'login', component: LoginComponent },
   { path: 'registration', component: RegistrationComponent },
