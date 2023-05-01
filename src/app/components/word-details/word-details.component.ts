@@ -32,12 +32,11 @@ export class WordDetailsComponent implements OnInit {
     public quizService: WordQuizSettingsService,
   ) {}
 
-  loading = true;
   id: number = this.route.snapshot.params['id'];
   editWordForm = new FormGroup({
-    id: new FormControl(0),
-    primaryLanguage: new FormControl(''),
-    secondaryLanguage: new FormControl(''),
+    id: new FormControl<number | null>(null),
+    primaryLanguage: new FormControl<string | null>(null),
+    secondaryLanguage: new FormControl<string | null>(null),
   });
   prevWordForm: Form = {
     id: null,
@@ -49,7 +48,8 @@ export class WordDetailsComponent implements OnInit {
     if (!this.quizService.languageOptions) {
       this.quizService.getLanguageOptions();
     }
-    this.getWord(this.id);
+    this.editWordForm.setValue(this.route.snapshot.data['word']);
+    this.prevWordForm = this.route.snapshot.data['word'];
   }
 
   handleSubmit() {
@@ -75,16 +75,6 @@ export class WordDetailsComponent implements OnInit {
     });
   }
 
-  private getWord(id: number) {
-    this.http
-      .get(`${environment.apiBaseURL}Words/GetOneById/${id}`)
-      .subscribe((res: any) => {
-        this.editWordForm.setValue(res);
-        this.prevWordForm = res;
-        this.loading = false;
-      });
-  }
-
   private deleteWord(id: number) {
     this.http
       .delete(`${environment.apiBaseURL}Words/DeleteOneById/${id}`)
@@ -106,5 +96,3 @@ export class WordDetailsComponent implements OnInit {
       });
   }
 }
-
-//

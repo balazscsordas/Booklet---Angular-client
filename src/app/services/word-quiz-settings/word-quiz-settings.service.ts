@@ -4,7 +4,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ErrorHandlerService } from '../error-handler/error-handler.service';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
 
 export interface ILanguageOptions {
   primaryLanguage: string;
