@@ -25,7 +25,7 @@ export class WordQuizComponent implements OnInit {
   showSolution = false;
   languageFrom = this.wordQuizSettings.settingsForm.getRawValue().languageFrom;
   randomLanguage =
-    !this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
+    this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
 
   ngOnInit() {
     this.word = this.activatedRoute.snapshot.data['word'];

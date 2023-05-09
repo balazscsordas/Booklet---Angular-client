@@ -16,9 +16,14 @@ export class WordQuizResolver implements Resolve<IWordInterface> {
 
   languageFrom = this.wordQuizSettings.settingsForm.getRawValue().languageFrom;
   randomLanguage =
-    !this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
+    this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
 
   resolve(): Observable<IWordInterface> {
-    return this.wordQuiz.getWord(this.languageFrom, this.randomLanguage);
+    console.log(this.randomLanguage);
+    if (this.randomLanguage) {
+      return this.wordQuiz.getWord(this.languageFrom, this.randomLanguage);
+    } else {
+      return this.wordQuiz.getWord(this.languageFrom, false);
+    }
   }
 }
