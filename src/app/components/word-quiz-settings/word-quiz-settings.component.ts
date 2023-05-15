@@ -8,16 +8,10 @@ import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/wor
   templateUrl: './word-quiz-settings.component.html',
 })
 export class WordQuizSettingsComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private snackbar: SnackbarService,
-    public quizService: WordQuizSettingsService,
-    private activatedRoute: ActivatedRoute,
-  ) {}
+  constructor(private router: Router, private snackbar: SnackbarService, public quizService: WordQuizSettingsService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
-    this.quizService.languageOptions =
-      this.activatedRoute.snapshot.data['languageOptions'];
+    this.quizService.languageOptions = this.activatedRoute.snapshot.data['languageOptions'];
     this.quizService.disableInputsIfRandomLanguageChecked();
   }
 
@@ -27,13 +21,8 @@ export class WordQuizSettingsComponent implements OnInit {
       return;
     }
     if (this.quizService.settingsForm.value.randomLanguage === false) {
-      if (
-        this.quizService.settingsForm.value.languageFrom ===
-        this.quizService.settingsForm.value.languageTo
-      ) {
-        this.snackbar.error(
-          "'Language From' and 'Language To' fields can't be equal.",
-        );
+      if (this.quizService.settingsForm.value.languageFrom === this.quizService.settingsForm.value.languageTo) {
+        this.snackbar.error("'Language From' and 'Language To' fields can't be equal.");
         return;
       }
     }

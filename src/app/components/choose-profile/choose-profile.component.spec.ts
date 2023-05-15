@@ -1,7 +1,4 @@
-import {
-  HttpClientTestingModule,
-  HttpTestingController,
-} from '@angular/common/http/testing';
+import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { CookieService } from 'ngx-cookie-service';
@@ -25,12 +22,7 @@ describe('ChooseProfileComponent', () => {
     await TestBed.configureTestingModule({
       imports: [HttpClientTestingModule, RouterTestingModule],
       declarations: [ChooseProfileComponent],
-      providers: [
-        AuthService,
-        ErrorHandlerService,
-        CookieService,
-        WordQuizSettingsService,
-      ],
+      providers: [AuthService, ErrorHandlerService, CookieService, WordQuizSettingsService],
     }).compileComponents();
   });
 
@@ -63,9 +55,7 @@ describe('ChooseProfileComponent', () => {
 
     component.ngOnInit();
 
-    const getProfilesRequest = httpMock.expectOne(
-      `${environment.apiBaseURL}Profile/GetProfiles`,
-    );
+    const getProfilesRequest = httpMock.expectOne(`${environment.apiBaseURL}Profile/GetProfiles`);
     expect(getProfilesRequest.request.method).toBe('GET');
 
     getProfilesRequest.flush(mockProfiles);

@@ -14,15 +14,7 @@ import { IProfile } from './service/choose-profile.service';
   templateUrl: './choose-profile.component.html',
 })
 export class ChooseProfileComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-    private auth: AuthService,
-    private router: Router,
-    private errorHandler: ErrorHandlerService,
-    private cookieService: CookieService,
-    private activatedRoute: ActivatedRoute,
-    private quizSettings: WordQuizSettingsService,
-  ) {}
+  constructor(private http: HttpClient, private auth: AuthService, private router: Router, private errorHandler: ErrorHandlerService, private cookieService: CookieService, private activatedRoute: ActivatedRoute, private quizSettings: WordQuizSettingsService) {}
   profiles?: IProfile[];
 
   ngOnInit(): void {
@@ -31,20 +23,10 @@ export class ChooseProfileComponent implements OnInit {
 
   setProfile(profile_id: number) {
     this.http
-      .post<{ profileToken: string }>(
-        `${environment.apiBaseURL}Profile/SetProfile`,
-        { profile_id },
-      )
+      .post<{ profileToken: string }>(`${environment.apiBaseURL}Profile/SetProfile`, { profile_id })
       .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
-        this.cookieService.set(
-          'Profile',
-          res.profileToken,
-          1,
-          undefined,
-          undefined,
-          true,
-        );
+        this.cookieService.set('Profile', res.profileToken, 1, undefined, undefined, true);
         this.auth.profileToken = res.profileToken;
         this.router.navigateByUrl('');
         this.quizSettings.getLanguageOptions();

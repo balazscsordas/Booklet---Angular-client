@@ -29,41 +29,11 @@ import { ForgottenPasswordInputComponent } from './components/forgotten-password
 import { NewPasswordComponent } from './components/forgotten-password/new-password/new-password.component';
 import { TranslatorComponent } from './components/translator/translator.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    WordQuizComponent,
-    NavbarComponent,
-    WordListComponent,
-    AddWordComponent,
-    WordDetailsComponent,
-    LoginComponent,
-    RegistrationComponent,
-    LayoutComponent,
-    InputFieldErrorTextComponent,
-    WordQuizSettingsComponent,
-    DeleteDialogComponent,
-    CreateNewProfileComponent,
-    ChooseProfileComponent,
-    ForgottenPasswordInputComponent,
-    NewPasswordComponent,
-    TranslatorComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatButtonModule,
-    HttpClientModule,
-    ReactiveFormsModule,
-    MatIconModule,
-    MatSnackBarModule,
-    MatProgressBarModule,
-    MatDialogModule,
-    MatMenuModule,
-    MatTabsModule,
-  ],
+  declarations: [AppComponent, WordQuizComponent, NavbarComponent, WordListComponent, AddWordComponent, WordDetailsComponent, LoginComponent, RegistrationComponent, LayoutComponent, InputFieldErrorTextComponent, WordQuizSettingsComponent, DeleteDialogComponent, CreateNewProfileComponent, ChooseProfileComponent, ForgottenPasswordInputComponent, NewPasswordComponent, TranslatorComponent, NotFoundPageComponent],
+  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule, MatButtonModule, HttpClientModule, ReactiveFormsModule, MatIconModule, MatSnackBarModule, MatProgressBarModule, MatDialogModule, MatMenuModule, MatTabsModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

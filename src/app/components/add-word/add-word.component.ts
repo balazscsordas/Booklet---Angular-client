@@ -12,12 +12,7 @@ import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/wor
   templateUrl: './add-word.component.html',
 })
 export class AddWordComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-    private snackbar: SnackbarService,
-    private errorHandler: ErrorHandlerService,
-    public quizService: WordQuizSettingsService,
-  ) {}
+  constructor(private http: HttpClient, private snackbar: SnackbarService, private errorHandler: ErrorHandlerService, public quizService: WordQuizSettingsService) {}
 
   public addNewWordForm = new FormGroup({
     primaryLanguage: new FormControl(''),
@@ -31,10 +26,7 @@ export class AddWordComponent implements OnInit {
   }
 
   handleSubmit() {
-    if (
-      this.addNewWordForm.value.secondaryLanguage !== '' &&
-      this.addNewWordForm.value.primaryLanguage !== ''
-    ) {
+    if (this.addNewWordForm.value.secondaryLanguage !== '' && this.addNewWordForm.value.primaryLanguage !== '') {
       this.postNewWord(this.addNewWordForm.value);
       this.addNewWordForm.reset();
     } else {
