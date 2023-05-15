@@ -20,6 +20,7 @@ import { WordQuizSettingsResolver } from './components/word-quiz-settings/resolv
 import { WordDetailsResolver } from './components/word-details/resolver/word-details.resolver';
 import { WordQuizResolver } from './components/word-quiz/resolver/word-quiz.resolver';
 import { WordListResolver } from './components/word-list/resolver/word-list.resolver';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 
 const routes: Routes = [
   {
@@ -76,6 +77,7 @@ const routes: Routes = [
   { path: 'forgotten-password', component: ForgottenPasswordInputComponent },
 
   { path: 'set-new-password/:token', component: NewPasswordComponent },
+  { path: '**', component: NotFoundPageComponent, pathMatch: 'full' },
 ];
 
 @NgModule({
