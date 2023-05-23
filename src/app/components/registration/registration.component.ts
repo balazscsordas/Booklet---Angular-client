@@ -13,27 +13,15 @@ import { Router } from '@angular/router';
   templateUrl: './registration.component.html',
 })
 export class RegistrationComponent {
-  constructor(
-    private auth: AuthService,
-    private snackbar: SnackbarService,
-    private http: HttpClient,
-    private router: Router,
-    private errorHandler: ErrorHandlerService,
-  ) {}
+  constructor(private auth: AuthService, private snackbar: SnackbarService, private http: HttpClient, private router: Router, private errorHandler: ErrorHandlerService) {}
 
   registrationForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
-    password: new FormControl(null, [
-      Validators.minLength(6),
-      Validators.required,
-    ]),
+    password: new FormControl(null, [Validators.minLength(6), Validators.required]),
   });
 
   handleSubmit() {
-    if (
-      this.registrationForm.controls.email.errors?.['required'] ||
-      this.registrationForm.controls.password.errors?.['required']
-    ) {
+    if (this.registrationForm.controls.email.errors?.['required'] || this.registrationForm.controls.password.errors?.['required']) {
       this.snackbar.error('Both fields are required');
     }
     if (this.registrationForm.valid) {
@@ -44,10 +32,7 @@ export class RegistrationComponent {
 
   private sendRegistrationCredentials(registrationForm: FormGroup) {
     this.http
-      .post(
-        environment.apiBaseURL + 'Auth/Registration',
-        registrationForm.value,
-      )
+      .post(environment.apiBaseURL + 'user/registration', registrationForm.value)
       .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         this.router.navigateByUrl('login');
