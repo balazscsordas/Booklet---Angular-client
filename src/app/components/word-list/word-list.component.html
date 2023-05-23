@@ -1,20 +1,8 @@
 <h1 class="text-center">My Words</h1>
 
-<form
-  [formGroup]="searchForm"
-  (ngSubmit)="searchSubmit()"
-  class="relative mb-8 max-w-4xl mx-auto"
->
-  <input
-    type="text"
-    placeholder="Search"
-    formControlName="searchInput"
-    class="p-2 rounded-md bg-transparent border-[1px] w-full pr-10"
-  />
-  <button
-    type="submit"
-    class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center"
-  >
+<form [formGroup]="searchForm" (ngSubmit)="searchSubmit()" class="relative mb-8 max-w-4xl mx-auto">
+  <input type="text" placeholder="Search" formControlName="searchInput" class="p-2 rounded-md bg-transparent border-[1px] w-full pr-10" />
+  <button type="submit" class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center">
     <mat-icon>search</mat-icon>
   </button>
 </form>
@@ -24,29 +12,19 @@
     <span class="mr-4">Id</span>
     <div class="flex flex-row w-full">
       <ng-container *ngIf="quizSettingsService.languageOptions">
-        <span class="flex-1 px-2">{{
-          quizSettingsService.languageOptions.primaryLanguage
-        }}</span>
-        <span class="flex-1 px-2">{{
-          quizSettingsService.languageOptions.secondaryLanguage
-        }}</span>
+        <span class="flex-1 px-2">{{ quizSettingsService.languageOptions.primaryLanguage }}</span>
+        <span class="flex-1 px-2">{{ quizSettingsService.languageOptions.secondaryLanguage }}</span>
       </ng-container>
     </div>
     <span class="ml-10"></span>
   </div>
 
   <div *ngFor="let word of words; let i = index">
-    <div
-      class="flex flex-row bg-secondary border-[1px] border-primary text-tetriary2 items-center pl-4 p-1"
-    >
-      <span class="mr-4">{{ i + 1 }}</span>
+    <div class="flex flex-row bg-secondary border-[1px] border-primary text-tetriary2 items-center pl-4 p-1">
+      <span class="mr-4">{{ (page - 1) * 20 + i + 1 }}</span>
       <div class="flex flex-row w-full">
-        <span class="flex-1 px-2 items-center flex">{{
-          word.primaryLanguage
-        }}</span>
-        <span class="flex-1 px-2 items-center flex">{{
-          word.secondaryLanguage
-        }}</span>
+        <span class="flex-1 px-2 items-center flex">{{ word.primaryLanguage }}</span>
+        <span class="flex-1 px-2 items-center flex">{{ word.secondaryLanguage }}</span>
       </div>
       <button (click)="goToDetailsPage(word.id)" mat-icon-button>
         <mat-icon class="text-base">edit</mat-icon>
@@ -70,29 +48,13 @@
 <ng-container *ngIf="!words && !searchParam">
   <div class="text-center">
     <p>You haven't added any word yet!</p>
-    <button
-      [routerLink]="'/add-word'"
-      class="mt-6"
-      mat-raised-button
-      color="primary"
-      type="button"
-    >
-      Add Word
-    </button>
+    <button [routerLink]="'/add-word'" class="mt-6" mat-raised-button color="primary" type="button">Add Word</button>
   </div>
 </ng-container>
 
 <ng-container *ngIf="!words && searchParam">
   <div class="text-center">
     <p>There are no words matching the search criteria.</p>
-    <button
-      (click)="clearSearchInput()"
-      class="mt-6"
-      mat-raised-button
-      color="primary"
-      type="button"
-    >
-      Clear Search Input
-    </button>
+    <button (click)="clearSearchInput()" class="mt-6" mat-raised-button color="primary" type="button">Clear Search Input</button>
   </div>
 </ng-container>
