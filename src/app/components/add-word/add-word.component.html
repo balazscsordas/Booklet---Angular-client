@@ -1,30 +1,20 @@
 <h1 class="text-center">Add New Word</h1>
 
-<section class="max-w-7xl bg-secondary rounded-xl m-auto p-4">
+<section class="max-w-5xl bg-secondary rounded-xl m-auto p-4">
   <ng-container *ngIf="quizService.languageOptions">
     <form [formGroup]="addNewWordForm" (ngSubmit)="handleSubmit()">
       <section class="grid md:grid-cols-2 gap-4">
         <div class="flex flex-col">
           <label>{{ quizService.languageOptions.primaryLanguage }}</label>
-          <input
-            type="text"
-            formControlName="primaryLanguage"
-            class="input-design"
-          />
+          <input type="text" formControlName="primaryLanguage" class="input-design" />
         </div>
         <div class="flex flex-col">
           <label>{{ quizService.languageOptions.secondaryLanguage }}</label>
-          <input
-            type="text"
-            formControlName="secondaryLanguage"
-            class="input-design"
-          />
+          <input type="text" formControlName="secondaryLanguage" class="input-design" />
         </div>
       </section>
 
-      <button class="mt-8" mat-raised-button color="primary" type="submit">
-        Add Word
-      </button>
+      <button class="mt-8" mat-raised-button color="primary" type="submit">Add Word</button>
     </form>
     <app-translator></app-translator>
   </ng-container>

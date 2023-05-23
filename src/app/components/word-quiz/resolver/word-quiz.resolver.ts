@@ -9,17 +9,12 @@ import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/wor
   providedIn: 'root',
 })
 export class WordQuizResolver implements Resolve<IWordInterface> {
-  constructor(
-    private wordQuiz: WordQuizService,
-    private wordQuizSettings: WordQuizSettingsService,
-  ) {}
+  constructor(private wordQuiz: WordQuizService, private wordQuizSettings: WordQuizSettingsService) {}
 
   languageFrom = this.wordQuizSettings.settingsForm.getRawValue().languageFrom;
-  randomLanguage =
-    this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
+  randomLanguage = this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
 
   resolve(): Observable<IWordInterface> {
-    console.log(this.randomLanguage);
     if (this.randomLanguage) {
       return this.wordQuiz.getWord(this.languageFrom, this.randomLanguage);
     } else {

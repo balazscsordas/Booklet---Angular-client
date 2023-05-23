@@ -20,15 +20,7 @@ export interface IWord {
   templateUrl: './word-list.component.html',
 })
 export class WordListComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private snackbar: SnackbarService,
-    private errorHandler: ErrorHandlerService,
-    public quizSettingsService: WordQuizSettingsService,
-    private wordListService: WordListService,
-  ) {}
+  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute, private router: Router, private snackbar: SnackbarService, private errorHandler: ErrorHandlerService, public quizSettingsService: WordQuizSettingsService, private wordListService: WordListService) {}
 
   searchParam: string | null = this.getCurrentSearchParam();
   words: IWord[] | undefined;
@@ -51,11 +43,9 @@ export class WordListComponent implements OnInit {
     if (this.page < this.maxPageNumber) {
       this.page = this.page + 1;
       this.router.navigate([`/my-words/${this.page}`]);
-      this.wordListService
-        .getWordList(this.page, this.searchParam)
-        .subscribe(res => {
-          this.words = res;
-        });
+      this.wordListService.getWordList(this.page, this.searchParam).subscribe(res => {
+        this.words = res;
+      });
     }
   }
 
@@ -63,11 +53,9 @@ export class WordListComponent implements OnInit {
     if (this.page > 1) {
       this.page = this.page - 1;
       this.router.navigate([`/my-words/${this.page}`]);
-      this.wordListService
-        .getWordList(this.page, this.searchParam)
-        .subscribe(res => {
-          this.words = res;
-        });
+      this.wordListService.getWordList(this.page, this.searchParam).subscribe(res => {
+        this.words = res;
+      });
     }
   }
 
@@ -85,11 +73,9 @@ export class WordListComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
       this.searchParam = searchInput;
-      this.wordListService
-        .getWordList(this.page, searchInput)
-        .subscribe(res => {
-          this.words = res;
-        });
+      this.wordListService.getWordList(this.page, searchInput).subscribe(res => {
+        this.words = res;
+      });
     } else {
       this.snackbar.error('Please fill out the search input field.');
     }
@@ -104,7 +90,7 @@ export class WordListComponent implements OnInit {
 
   private getMaxPageNumber() {
     this.http
-      .get<number>(`${environment.apiBaseURL}Words/GetMaxPageNumber`)
+      .get<number>(`${environment.apiBaseURL}word/maxPageNumber`)
       .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         this.maxPageNumber = res;
@@ -112,8 +98,7 @@ export class WordListComponent implements OnInit {
   }
 
   private getCurrentSearchParam() {
-    const searchParam =
-      this.activatedRoute.snapshot.queryParamMap.get('search');
+    const searchParam = this.activatedRoute.snapshot.queryParamMap.get('search');
     if (!searchParam) {
       return null;
     } else {

@@ -1,41 +1,18 @@
 <ng-container *ngIf="word">
-  <section
-    class="text-center h-[70vh] flex items-center justify-center flex-col"
-  >
+  <section class="text-center h-[70vh] flex items-center justify-center flex-col">
     <p class="text-3xl font-medium text-tetriary1">
       {{ word.wordFrom }}
     </p>
     <p class="my-4 text-tetriary1">-</p>
-    <p
-      class="text-3xl font-medium text-tetriary1"
-      [ngStyle]="{ visibility: showSolution ? 'visible' : 'hidden' }"
-    >
+    <p class="text-3xl font-medium text-tetriary1" [ngStyle]="{ visibility: showSolution ? 'visible' : 'hidden' }">
       {{ word.wordTo }}
     </p>
   </section>
-  <section
-    class="bottom-0 left-0 right-0 absolute p-6 border-t-[1px] text-center"
-  >
+  <section class="bottom-0 left-0 right-0 absolute p-6 border-t-[1px] text-center">
     <div class="max-w-md grid grid-cols-2 gap-6 sm:gap-20 m-auto">
-      <button mat-raised-button color="primary" (click)="exitSession()">
-        Exit Session
-      </button>
-      <button
-        *ngIf="showSolution"
-        mat-raised-button
-        color="primary"
-        (click)="getNextWord()"
-      >
-        New Word
-      </button>
-      <button
-        *ngIf="!showSolution"
-        mat-raised-button
-        color="primary"
-        (click)="setShowSolution()"
-      >
-        Show Solution
-      </button>
+      <button mat-raised-button color="primary" (click)="exitSession()">Exit Session</button>
+      <button *ngIf="showSolution" mat-raised-button color="primary" (click)="getNextWord()">New Word</button>
+      <button *ngIf="!showSolution" mat-raised-button color="primary" (click)="setShowSolution()">Show Solution</button>
     </div>
   </section>
 </ng-container>
@@ -45,14 +22,6 @@
 
   <div class="text-center">
     <p>You haven't added any word yet!</p>
-    <button
-      [routerLink]="'/add-word'"
-      class="mt-6"
-      mat-raised-button
-      color="primary"
-      type="button"
-    >
-      Add Word
-    </button>
+    <button [routerLink]="'/add-word'" class="mt-6" mat-raised-button color="primary" type="button">Add Word</button>
   </div>
 </ng-container>

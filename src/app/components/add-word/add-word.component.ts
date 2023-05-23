@@ -36,7 +36,7 @@ export class AddWordComponent implements OnInit {
 
   private postNewWord(FormData: any) {
     this.http
-      .post(environment.apiBaseURL + 'Words/AddNewWord', FormData)
+      .post(environment.apiBaseURL + 'word', FormData)
       .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         this.snackbar.success('Successfully added a new word.');

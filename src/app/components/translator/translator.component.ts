@@ -12,12 +12,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './translator.component.html',
 })
 export class TranslatorComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-    private snackbar: SnackbarService,
-    private errorHandler: ErrorHandlerService,
-    public quizService: WordQuizSettingsService,
-  ) {}
+  constructor(private http: HttpClient, private snackbar: SnackbarService, private errorHandler: ErrorHandlerService, public quizService: WordQuizSettingsService) {}
 
   languageToOptions = [
     {
@@ -55,14 +50,8 @@ export class TranslatorComponent implements OnInit {
 
   public translatorForm = new FormGroup({
     textToTranslate: new FormControl<string | null>(null, Validators.required),
-    translateFrom: new FormControl(
-      this.languageFromOptions[0].value,
-      Validators.required,
-    ),
-    translateTo: new FormControl(
-      this.languageToOptions[0].value,
-      Validators.required,
-    ),
+    translateFrom: new FormControl(this.languageFromOptions[0].value, Validators.required),
+    translateTo: new FormControl(this.languageToOptions[0].value, Validators.required),
   });
   translatedText: string | null = null;
 
@@ -82,10 +71,7 @@ export class TranslatorComponent implements OnInit {
 
   private getTranslation(FormData: any) {
     this.http
-      .post<{ translatedText: string }>(
-        environment.apiBaseURL + 'Words/Translate',
-        FormData,
-      )
+      .post<{ translatedText: string }>(environment.apiBaseURL + 'word/translate', FormData)
       .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         this.translatedText = res.translatedText;

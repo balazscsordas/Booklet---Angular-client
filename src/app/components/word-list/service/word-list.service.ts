@@ -9,14 +9,11 @@ import { ErrorHandlerService } from 'src/app/services/error-handler/error-handle
   providedIn: 'root',
 })
 export class WordListService {
-  constructor(
-    private http: HttpClient,
-    private errorHandler: ErrorHandlerService,
-  ) {}
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) {}
 
   getWordList(page: number, searchParam: string | null) {
     return this.http
-      .get<IWord[]>(`${environment.apiBaseURL}Words/GetAll`, {
+      .get<IWord[]>(`${environment.apiBaseURL}word/all`, {
         params: searchParam ? { page, searchParam } : { page },
       })
       .pipe(catchError(error => this.errorHandler.handleError(error)));

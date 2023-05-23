@@ -22,15 +22,7 @@ interface Form {
   templateUrl: './word-details.component.html',
 })
 export class WordDetailsComponent implements OnInit {
-  constructor(
-    private http: HttpClient,
-    private route: ActivatedRoute,
-    private location: Location,
-    private snackbar: SnackbarService,
-    private errorHandler: ErrorHandlerService,
-    private dialog: MatDialog,
-    public quizService: WordQuizSettingsService,
-  ) {}
+  constructor(private http: HttpClient, private route: ActivatedRoute, private location: Location, private snackbar: SnackbarService, private errorHandler: ErrorHandlerService, private dialog: MatDialog, public quizService: WordQuizSettingsService) {}
 
   id: number = this.route.snapshot.params['id'];
   editWordForm = new FormGroup({
@@ -53,10 +45,7 @@ export class WordDetailsComponent implements OnInit {
   }
 
   handleSubmit() {
-    if (
-      JSON.stringify(this.prevWordForm) ===
-      JSON.stringify(this.editWordForm.value)
-    ) {
+    if (JSON.stringify(this.prevWordForm) === JSON.stringify(this.editWordForm.value)) {
       this.snackbar.info('The data is the same.');
     } else {
       this.postEditedWord(this.editWordForm.value);
@@ -77,7 +66,7 @@ export class WordDetailsComponent implements OnInit {
 
   private deleteWord(id: number) {
     this.http
-      .delete(`${environment.apiBaseURL}Words/DeleteOneById/${id}`)
+      .delete(`${environment.apiBaseURL}word/${id}`)
       .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         this.location.back();
@@ -87,7 +76,7 @@ export class WordDetailsComponent implements OnInit {
 
   private postEditedWord(newData: any) {
     this.http
-      .put<Form>(environment.apiBaseURL + 'Words/EditWord', newData)
+      .put<Form>(environment.apiBaseURL + 'word', newData)
       .pipe(catchError(error => this.errorHandler.handleError(error)))
       .subscribe(res => {
         this.location.back();

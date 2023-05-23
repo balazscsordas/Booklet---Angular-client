@@ -8,14 +8,9 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class WordDetailsService {
-  constructor(
-    private http: HttpClient,
-    private errorHandler: ErrorHandlerService,
-  ) {}
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlerService) {}
 
   getWord(id: number) {
-    return this.http
-      .get(`${environment.apiBaseURL}Words/GetOneById/${id}`)
-      .pipe(catchError(error => this.errorHandler.handleError(error)));
+    return this.http.get(`${environment.apiBaseURL}word/getOneById/${id}`).pipe(catchError(error => this.errorHandler.handleError(error)));
   }
 }

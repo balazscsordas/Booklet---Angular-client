@@ -10,23 +10,12 @@ import { catchError } from 'rxjs';
   providedIn: 'root',
 })
 export class WordQuizService {
-  constructor(
-    private http: HttpClient,
-    private errorHandler: ErrorHandlerService,
-    private quizService: WordQuizSettingsService,
-  ) {}
+  constructor(private http: HttpClient, private errorHandler: ErrorHandlerService, private quizService: WordQuizSettingsService) {}
 
   getWord(languageFrom: string | null, randomLanguage: boolean) {
-    const params = new HttpParams()
-      .set('randomLanguage', randomLanguage)
-      .set(
-        'languageFrom',
-        languageFrom === this.quizService.languageOptions?.primaryLanguage
-          ? 'primaryLanguage'
-          : 'secondaryLanguage',
-      );
+    const params = new HttpParams().set('randomLanguage', randomLanguage).set('languageFrom', languageFrom === this.quizService.languageOptions?.primaryLanguage ? 'primaryLanguage' : 'secondaryLanguage');
     return this.http
-      .get<IWordInterface>(`${environment.apiBaseURL}Words/GetOneRandom`, {
+      .get<IWordInterface>(`${environment.apiBaseURL}word/random`, {
         params,
       })
       .pipe(catchError(error => this.errorHandler.handleError(error)));
