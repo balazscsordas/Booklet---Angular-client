@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError } from 'rxjs';
+import { Observable, catchError } from 'rxjs';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 import { environment } from 'src/environments/environment';
 import { WordListService } from './service/word-list.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddWordDialogComponent } from '../dialogs/add-word-dialog/add-word-dialog.component';
 
 export interface IWord {
   id: number;
@@ -20,11 +22,21 @@ export interface IWord {
   templateUrl: './word-list.component.html',
 })
 export class WordListComponent implements OnInit {
-  constructor(private http: HttpClient, private activatedRoute: ActivatedRoute, private router: Router, private snackbar: SnackbarService, private errorHandler: ErrorHandlerService, public quizSettingsService: WordQuizSettingsService, private wordListService: WordListService) {}
+  constructor(
+    private dialog: MatDialog,
+    private http: HttpClient,
+    private activatedRoute: ActivatedRoute,
+    private router: Router,
+    private snackbar: SnackbarService,
+    private errorHandler: ErrorHandlerService,
+    public quizSettingsService: WordQuizSettingsService,
+    private wordListService: WordListService,
+  ) {}
 
   searchParam: string | null = this.getCurrentSearchParam();
-  words: IWord[] | undefined;
+  words: IWord[] = this.activatedRoute.snapshot.data['words'];
   page: number = Number(this.activatedRoute.snapshot.params['page']);
+  wordListId: number = Number(this.activatedRoute.snapshot.params['wordListId']);
   maxPageNumber = 1;
 
   searchForm = new FormGroup({
@@ -35,15 +47,31 @@ export class WordListComponent implements OnInit {
     if (!this.quizSettingsService.languageOptions) {
       this.quizSettingsService.getLanguageOptions();
     }
-    this.words = this.activatedRoute.snapshot.data['words'];
     this.getMaxPageNumber();
+  }
+
+  openAddWordDialog(): void {
+    const dialogRef = this.dialog.open(AddWordDialogComponent);
+
+    dialogRef.afterClosed().subscribe(newWordData => {
+      if (newWordData) {
+        const newWordDataWithWordListId = {
+          ...newWordData,
+          word_list_id: this.wordListId,
+        };
+        this.wordListService.postNewWord(newWordDataWithWordListId).subscribe(newWord => {
+          this.snackbar.success('Successfully added a new word.');
+          this.words.push(newWord);
+        });
+      }
+    });
   }
 
   goToNextPage() {
     if (this.page < this.maxPageNumber) {
       this.page = this.page + 1;
-      this.router.navigate([`/my-words/${this.page}`]);
-      this.wordListService.getWordList(this.page, this.searchParam).subscribe(res => {
+      this.router.navigate([`/my-lists/${this.wordListId}/${this.page}`]);
+      this.wordListService.getWordList(this.wordListId, this.page, this.searchParam).subscribe(res => {
         this.words = res;
       });
     }
@@ -52,8 +80,8 @@ export class WordListComponent implements OnInit {
   goToPrevPage() {
     if (this.page > 1) {
       this.page = this.page - 1;
-      this.router.navigate([`/my-words/${this.page}`]);
-      this.wordListService.getWordList(this.page, this.searchParam).subscribe(res => {
+      this.router.navigate([`/my-lists/${this.wordListId}/${this.page}`]);
+      this.wordListService.getWordList(this.wordListId, this.page, this.searchParam).subscribe(res => {
         this.words = res;
       });
     }
@@ -73,7 +101,7 @@ export class WordListComponent implements OnInit {
         queryParamsHandling: 'merge',
       });
       this.searchParam = searchInput;
-      this.wordListService.getWordList(this.page, searchInput).subscribe(res => {
+      this.wordListService.getWordList(this.wordListId, this.page, searchInput).subscribe(res => {
         this.words = res;
       });
     } else {
@@ -83,7 +111,7 @@ export class WordListComponent implements OnInit {
 
   clearSearchInput() {
     this.searchForm.reset();
-    this.wordListService.getWordList(this.page, null).subscribe(res => {
+    this.wordListService.getWordList(this.wordListId, this.page, null).subscribe(res => {
       this.words = res;
     });
   }

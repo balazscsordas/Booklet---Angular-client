@@ -13,7 +13,8 @@ export class WordListResolver implements Resolve<IWord[]> {
   resolve(route: ActivatedRouteSnapshot): Observable<IWord[]> {
     const searchParam: string | null = route.params['search'];
     const page: number = route.params['page'];
+    const wordListId: number = route.params['wordListId'];
 
-    return this.wordListService.getWordList(page, searchParam);
+    return this.wordListService.getWordList(wordListId, page, searchParam);
   }
 }

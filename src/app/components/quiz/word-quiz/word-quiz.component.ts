@@ -14,18 +14,12 @@ export interface IWordInterface {
   templateUrl: './word-quiz.component.html',
 })
 export class WordQuizComponent implements OnInit {
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private wordQuiz: WordQuizService,
-    private wordQuizSettings: WordQuizSettingsService,
-  ) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private wordQuiz: WordQuizService, private wordQuizSettings: WordQuizSettingsService) {}
 
   word: IWordInterface | undefined;
   showSolution = false;
   languageFrom = this.wordQuizSettings.settingsForm.getRawValue().languageFrom;
-  randomLanguage =
-    this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
+  randomLanguage = this.wordQuizSettings.settingsForm.getRawValue().randomLanguage;
 
   ngOnInit() {
     this.word = this.activatedRoute.snapshot.data['word'];
@@ -34,11 +28,9 @@ export class WordQuizComponent implements OnInit {
   getNextWord() {
     if (this.randomLanguage !== null) {
       this.showSolution = false;
-      this.wordQuiz
-        .getWord(this.languageFrom, this.randomLanguage)
-        .subscribe(res => {
-          this.word = res;
-        });
+      this.wordQuiz.getWord(this.languageFrom, this.randomLanguage).subscribe(res => {
+        this.word = res;
+      });
     }
   }
 

@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 import { ErrorHandlerService } from '../../services/error-handler/error-handler.service';
 import { SnackbarService } from '../../services/snackbar/snackbar.service';
 import { MatDialog } from '@angular/material/dialog';
-import { DeleteDialogComponent } from '../delete-dialog/delete-dialog.component';
+import { DeleteDialogComponent } from '../dialogs/delete-dialog/delete-dialog.component';
 import { WordQuizSettingsService } from 'src/app/services/word-quiz-settings/word-quiz-settings.service';
 
 interface Form {

@@ -1,11 +1,21 @@
 <h1 class="text-center">My Words</h1>
 
-<form [formGroup]="searchForm" (ngSubmit)="searchSubmit()" class="relative mb-8 max-w-5xl mx-auto">
-  <input type="text" placeholder="Search" formControlName="searchInput" class="p-2 rounded-md bg-transparent border-[1px] w-full pr-10" />
-  <button type="submit" class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center">
-    <mat-icon>search</mat-icon>
-  </button>
-</form>
+<ng-container *ngIf="words">
+  <div class="text-center">
+    <button class="mb-12" mat-raised-button color="primary" type="button" (click)="openAddWordDialog()">Add Word</button>
+  </div>
+  <form [formGroup]="searchForm" (ngSubmit)="searchSubmit()" class="relative mb-8 max-w-5xl mx-auto">
+    <input
+      type="text"
+      placeholder="Search"
+      formControlName="searchInput"
+      class="p-2 rounded-md bg-transparent border-[1px] w-full pr-10"
+    />
+    <button type="submit" class="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2 flex items-center">
+      <mat-icon>search</mat-icon>
+    </button>
+  </form>
+</ng-container>
 
 <ng-container *ngIf="words">
   <div class="flex flex-row p-4 bg-secondary text-tetriary1 font-medium">
@@ -47,8 +57,8 @@
 
 <ng-container *ngIf="!words && !searchParam">
   <div class="text-center">
-    <p>You haven't added any word yet!</p>
-    <button [routerLink]="'/add-word'" class="mt-6" mat-raised-button color="primary" type="button">Add Word</button>
+    <p>You haven't added any word to this list yet!</p>
+    <button class="mt-6" mat-raised-button color="primary" type="button" (click)="openAddWordDialog()">Add Word</button>
   </div>
 </ng-container>
 

@@ -12,12 +12,7 @@ import { environment } from 'src/environments/environment';
   templateUrl: './create-new-profile.component.html',
 })
 export class CreateNewProfileComponent {
-  constructor(
-    private snackbar: SnackbarService,
-    private http: HttpClient,
-    private errorHandler: ErrorHandlerService,
-    private router: Router,
-  ) {}
+  constructor(private snackbar: SnackbarService, private http: HttpClient, private errorHandler: ErrorHandlerService, private router: Router) {}
 
   languageOptions = ['Hungarian', 'English', 'German'];
   loading = false;
@@ -30,8 +25,7 @@ export class CreateNewProfileComponent {
   handleSubmit() {
     const name = this.newProfileForm.getRawValue().name;
     const primaryLanguage = this.newProfileForm.getRawValue().primaryLanguage;
-    const secondaryLanguage =
-      this.newProfileForm.getRawValue().secondaryLanguage;
+    const secondaryLanguage = this.newProfileForm.getRawValue().secondaryLanguage;
     if (this.newProfileForm.invalid) {
       this.snackbar.error('All of the fields are required.');
       return;

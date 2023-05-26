@@ -1,0 +1,12 @@
+<section class="w-[800px] max-w-[90vw] p-4 bg-primary border-[1px] border-secondary">
+  <h2 class="text-center mb-4">Create new List</h2>
+  <form [formGroup]="newWordListForm" class="relative mb-4" (ngSubmit)="submitNewWordListForm()">
+    <div class="flex flex-col">
+      <label class="mb-2">Name *</label>
+      <input type="text" formControlName="name" class="input-design" />
+    </div>
+    <div class="text-center">
+      <button class="mt-8 mb-4" mat-raised-button color="primary" type="submit">Create List</button>
+    </div>
+  </form>
+</section>

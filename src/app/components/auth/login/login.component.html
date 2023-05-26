@@ -1,0 +1,32 @@
+<section class="max-w-xl p-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
+  <section class="p-4 md:p-6 bg-secondary rounded-xl w-full shadow-[0_3px_10px_rgb(0,0,0,0.2)] border-gray-700 border">
+    <h1 class="mb-6 font-bold text-center">Sign In</h1>
+    <form [formGroup]="loginForm" (ngSubmit)="handleSubmit()">
+      <div class="grid grid-cols-1 gap-6">
+        <div class="flex flex-col">
+          <label>E-mail *</label>
+          <input type="text" autofocus autocomplete="email" formControlName="email" class="input-design" />
+        </div>
+        <div class="flex flex-col">
+          <label>Password *</label>
+          <input type="password" formControlName="password" class="input-design" />
+        </div>
+      </div>
+      <button class="mt-8 mb-4" mat-raised-button color="primary" type="submit" [disabled]="loading">Login</button>
+      <button
+        class="mt-8 mb-4 ml-8"
+        mat-raised-button
+        color="primary"
+        (click)="testUserLogin()"
+        type="button"
+        [disabled]="loading"
+      >
+        Test User Login
+      </button>
+      <p class="mb-4 mt-2">
+        <a routerLink="/forgotten-password" class="underline"> I have forgotten my password. </a>
+      </p>
+      <p>Click <a routerLink="/registration" class="underline">here</a> to register</p>
+    </form>
+  </section>
+</section>

@@ -1,0 +1,24 @@
+<h1 class="text-center">My Lists</h1>
+
+<div class="text-center mb-12">
+  <button mat-raised-button color="primary" type="button" (click)="openCreateWordListDialog()">Create List</button>
+</div>
+
+<ng-container *ngIf="wordLists">
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-10">
+    <button
+      class="bg-secondary text-center transition-all hover:scale-[1.03] h-24 rounded-lg shadow-[0_3px_10px_rgb(0,0,0,0.2)] border-gray-700 border"
+      *ngFor="let list of wordLists"
+      (click)="chooseList(list.id)"
+    >
+      <p>{{ list.name }}</p>
+    </button>
+  </section>
+</ng-container>
+
+<ng-container *ngIf="!wordLists">
+  <div class="text-center">
+    <p>You haven't created any list yet!</p>
+    <button class="mt-6" mat-raised-button color="primary" type="button" (click)="openCreateWordListDialog()">Create List</button>
+  </div>
+</ng-container>

@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
@@ -8,13 +7,21 @@ import { ErrorHandlerService } from 'src/app/services/error-handler/error-handle
 import { catchError } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
 })
 export class LoginComponent {
-  constructor(private auth: AuthService, private snackbar: SnackbarService, private http: HttpClient, private errorHandler: ErrorHandlerService, private cookieService: CookieService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private snackbar: SnackbarService,
+    private http: HttpClient,
+    private errorHandler: ErrorHandlerService,
+    private cookieService: CookieService,
+    private router: Router,
+  ) {}
 
   loading = false;
   loginForm = new FormGroup({

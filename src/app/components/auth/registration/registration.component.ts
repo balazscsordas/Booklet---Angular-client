@@ -1,19 +1,25 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../services/auth/auth.service';
 import { SnackbarService } from 'src/app/services/snackbar/snackbar.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs';
 import { ErrorHandlerService } from 'src/app/services/error-handler/error-handler.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth/auth.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
 })
 export class RegistrationComponent {
-  constructor(private auth: AuthService, private snackbar: SnackbarService, private http: HttpClient, private router: Router, private errorHandler: ErrorHandlerService) {}
+  constructor(
+    private auth: AuthService,
+    private snackbar: SnackbarService,
+    private http: HttpClient,
+    private router: Router,
+    private errorHandler: ErrorHandlerService,
+  ) {}
 
   registrationForm = new FormGroup({
     email: new FormControl(null, [Validators.required, Validators.email]),
@@ -21,7 +27,10 @@ export class RegistrationComponent {
   });
 
   handleSubmit() {
-    if (this.registrationForm.controls.email.errors?.['required'] || this.registrationForm.controls.password.errors?.['required']) {
+    if (
+      this.registrationForm.controls.email.errors?.['required'] ||
+      this.registrationForm.controls.password.errors?.['required']
+    ) {
       this.snackbar.error('Both fields are required');
     }
     if (this.registrationForm.valid) {

@@ -1,26 +1,28 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AddWordComponent } from './components/add-word/add-word.component';
-import { LayoutComponent } from './components/layout/layout.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { WordDetailsComponent } from './components/word-details/word-details.component';
 import { WordListComponent } from './components/word-list/word-list.component';
-import { WordQuizComponent } from './components/word-quiz/word-quiz.component';
 import { AuthGuard } from './guards/auth/auth.guard';
-import { WordQuizSettingsComponent } from './components/word-quiz-settings/word-quiz-settings.component';
 import { WordQuizGuard } from './guards/word-quiz/word-quiz.guard';
-import { CreateNewProfileComponent } from './components/create-new-profile/create-new-profile.component';
-import { ChooseProfileComponent } from './components/choose-profile/choose-profile.component';
 import { ProfileGuard } from './guards/profile/profile.guard';
-import { ForgottenPasswordInputComponent } from './components/forgotten-password/forgotten-password-input/forgotten-password-input.component';
-import { NewPasswordComponent } from './components/forgotten-password/new-password/new-password.component';
-import { ChooseProfileResolver } from './components/choose-profile/resolver/choose-profile.resolver';
-import { WordQuizSettingsResolver } from './components/word-quiz-settings/resolver/word-quiz-settings.resolver';
 import { WordDetailsResolver } from './components/word-details/resolver/word-details.resolver';
-import { WordQuizResolver } from './components/word-quiz/resolver/word-quiz.resolver';
 import { WordListResolver } from './components/word-list/resolver/word-list.resolver';
-import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { MyWordListsComponent } from './components/my-word-lists/my-word-lists.component';
+import { MyWordListsResolver } from './components/my-word-lists/resolver/my-word-lists.resolver';
+import { TranslatorComponent } from './components/translator/translator.component';
+import { ChooseProfileComponent } from './components/auth/choose-profile/choose-profile.component';
+import { ChooseProfileResolver } from './components/auth/choose-profile/resolver/choose-profile.resolver';
+import { CreateNewProfileComponent } from './components/auth/create-new-profile/create-new-profile.component';
+import { ForgottenPasswordInputComponent } from './components/auth/forgotten-password/forgotten-password-input/forgotten-password-input.component';
+import { NewPasswordComponent } from './components/auth/forgotten-password/new-password/new-password.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { RegistrationComponent } from './components/auth/registration/registration.component';
+import { LayoutComponent } from './components/layout/layout-comp/layout.component';
+import { NotFoundPageComponent } from './components/layout/not-found-page/not-found-page.component';
+import { WordQuizSettingsResolver } from './components/quiz/word-quiz-settings/resolver/word-quiz-settings.resolver';
+import { WordQuizSettingsComponent } from './components/quiz/word-quiz-settings/word-quiz-settings.component';
+import { WordQuizResolver } from './components/quiz/word-quiz/resolver/word-quiz.resolver';
+import { WordQuizComponent } from './components/quiz/word-quiz/word-quiz.component';
 
 const routes: Routes = [
   {
@@ -41,14 +43,20 @@ const routes: Routes = [
         resolve: { word: WordQuizResolver },
       },
       {
-        path: 'my-words/:page',
+        path: 'my-lists',
+        component: MyWordListsComponent,
+        canActivate: [AuthGuard, ProfileGuard],
+        resolve: { wordLists: MyWordListsResolver },
+      },
+      {
+        path: 'my-lists/:wordListId/:page',
         component: WordListComponent,
         canActivate: [AuthGuard, ProfileGuard],
         resolve: { words: WordListResolver },
       },
       {
-        path: 'add-word',
-        component: AddWordComponent,
+        path: 'translator',
+        component: TranslatorComponent,
         canActivate: [AuthGuard, ProfileGuard],
       },
       {
